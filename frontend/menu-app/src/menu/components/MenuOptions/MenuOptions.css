@@ -1,0 +1,4 @@
+.menu__options {
+    display: flex;
+    align-items: flex-end;
+}

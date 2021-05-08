@@ -1,0 +1,9 @@
+.menu__header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.horizontalRow__bold {
+    border-top: 5px solid rgb(170, 164, 164);
+}

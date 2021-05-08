@@ -1,0 +1,6 @@
+.horizontal-dotted {
+    border: none;
+    border-top: 0.7rem dotted rgb(172, 163, 163);
+    width: 5%;
+    margin: auto;
+}
