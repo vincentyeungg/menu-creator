@@ -22,5 +22,20 @@
 }
 
 .menuList__option {
-    margin-left: 85%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 10%;
+}
+
+.menuList__listItem_options {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.menuList__edit,
+.menuList__delete {
+    margin-left: 1rem;
+    margin-top: 1rem;
 }

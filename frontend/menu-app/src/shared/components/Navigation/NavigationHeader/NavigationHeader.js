@@ -5,7 +5,7 @@ import "./NagivationHeader.css";
 function NavigationHeader() {
     return (
         <div>
-            <h1>DELISH MENU</h1>
+            <h1 className="navigationHeader__header">DELISH MENU</h1>
         </div>
     )
 }

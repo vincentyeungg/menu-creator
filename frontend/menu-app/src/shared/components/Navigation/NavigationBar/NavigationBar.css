@@ -1,3 +1,20 @@
-.navigationBar__navlinks {
-    
+.navigationBar__navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(253, 245, 235);
+    padding: 0.5rem 1rem;
+    /* position: fixed;
+    top: 0;
+    right: 0;
+    left: 0; */
+    top: 0;
+}
+
+.navigationBar__header {
+    flex-grow: 1;
+}
+
+.navigationBar__links {
+    flex-grow: 1;
 }

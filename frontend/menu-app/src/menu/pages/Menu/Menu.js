@@ -1,8 +1,8 @@
 import React from 'react';
-import MenuHeader from "../MenuHeader/MenuHeader";
-import HorizontalRow from "../HorizontalRow/HorizontalRow";
-import MenuDescription from "../MenuDescription/MenuDescription";
-import MenuSection from "../MenuSection/MenuSection";
+import MenuHeader from "../../components/MenuHeader/MenuHeader";
+import HorizontalRow from "../../components/HorizontalRow/HorizontalRow";
+import MenuDescription from "../../components/MenuDescription/MenuDescription";
+import MenuSection from "../../components/MenuSection/MenuSection";
 
 import "./Menu.css";
 
@@ -13,7 +13,7 @@ function Menu() {
             {/* dynamic description later */}
             <MenuDescription description="Description of your Menu." />
             <HorizontalRow />
-            <div class="menuSection">
+            <div className="menuSection">
                 <MenuSection />
             </div>
         </React.Fragment>

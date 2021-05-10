@@ -1,0 +1,28 @@
+.footer {
+    display: flex;
+    padding: 1rem;
+    background-color: rgb(253, 245, 235);
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__name {
+    font-weight: lighter;
+    padding: 0 1rem;
+}
+
+.footer__link {
+    font-weight: lighter;
+    padding: 0 1rem;
+}
+
+.footer--authentication {
+    display: flex;
+    padding: 1rem;
+    background-color: rgb(253, 245, 235);
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}
