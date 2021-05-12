@@ -3,33 +3,44 @@ import MenuItem from "../MenuItem/MenuItem";
 import Button from "../../../shared/components/Button/Button";
 import { Link } from "react-router-dom";
 import Modal from "../../../shared/components/Modal/Modal";
+import { useParams } from 'react-router-dom';
+import UpdateItem from "../UpdateItem/UpdateItem";
 
 import "./MenuList.css";
+import Input from '../../../shared/components/Input/Input';
+import useForm from '../../../shared/hooks/form-hook';
 
 function MenuList(props) {
 
     const items = props.items;
-    const userId = 'u1';
-    const menuId = 'm1';
+    // change later to make it dynamic
+    // const userId = 'u1';
+    // const menuId = 'm1';
+    // const url = `/${userId}/${menuId}`;
 
-    const [editModal, setEditModal] = useState(false);
-    const [deleteModal, setDeleteModal] = useState(false);
-    const [createModal, setCreateModal] = useState(false);
+    // const [editModal, setEditModal] = useState(false);
+    // const [deleteModal, setDeleteModal] = useState(false);
+    // const [createModal, setCreateModal] = useState(false);
 
-    const toggleEditModalHandler = () => {
-        // if open, then close, and vice versa
-        setEditModal(prev => !prev);
-    }
+    // const toggleEditModalHandler = () => {
+    //     // if open, then close, and vice versa
+    //     setEditModal(prev => !prev);
+    // }
 
-    const toggleDeleteModalHandler = () => {
-        // if open, then close, and vice versa
-        setDeleteModal(prev => !prev);
-    }
+    // const toggleDeleteModalHandler = () => {
+    //     // if open, then close, and vice versa
+    //     setDeleteModal(prev => !prev);
+    // }
 
-    const toggleCreateModalHandler = () => {
-        // if open, then close, and vice versa
-        setCreateModal(prev => !prev);
-    }
+    // const toggleCreateModalHandler = () => {
+    //     // if open, then close, and vice versa
+    //     setCreateModal(prev => !prev);
+    // }
+
+    // const onEditHandler = (event) => {
+    //     console.log('Saving edits.');
+    //     event.preventDefault();
+    // }
 
     return (
         <React.Fragment>
@@ -44,39 +55,41 @@ function MenuList(props) {
                             description={item.description}
                             price={item.price}
                             image={item.image}
+                            creator={item.creator}
+                            menu={item.menu}             
                         />
-                        <div className="menuList__listItem_options">
+                        {/* <div className="menuList__listItem_options">
                             <div className="menuList__edit">
-                                <Link to={`/${userId}/${menuId}/edit/${item.id}`} style={{ textDecoration: 'none' }}>
-                                    <Button onClick={toggleEditModalHandler}>Edit Item</Button>
-                                </Link>
+                                <Button to={`${url}/edit/${item.id}`} onClick={toggleEditModalHandler}>Edit Item</Button>
                             </div>
                             <div className="menuList__delete">
-                                <Link to={`/${userId}/${menuId}/delete/${item.id}`} style={{ textDecoration: 'none' }}>
+                                <Link to={`${url}/delete/${item.id}`} style={{ textDecoration: 'none' }}>
                                     <Button onClick={toggleDeleteModalHandler}>Delete Item</Button>
                                 </Link>
                             </div>
-                        </div>
+                        </div> */}
                     </li>
                 ))}
             </ul>
-            <div className="menuList__options">
+            {/* <div className="menuList__options">
                 <div className="menuList__option">
-                    <Link to={`/${userId}/${menuId}/create`} style={{ textDecoration: 'none' }}>
+                    <Link to={`${url}/create`} style={{ textDecoration: 'none' }}>
                         <Button onClick={toggleCreateModalHandler}>Add New {props.sectionName}</Button>
                     </Link>
                 </div>
-            </div>
-            {/* handles edit form */}
-            <Modal
+            </div> */}
+            
+            {/* <Modal
                 show={editModal}
                 onCancel={toggleEditModalHandler}
                 header="Edit Item"
                 footer={<Button onClick={toggleEditModalHandler}>Close</Button>}
             >
-                <h2>Edit Modal</h2>
-            </Modal>
-            {/* handles delete form */}
+                <UpdateItem />
+            </Modal> */}
+
+            {/*
+            
             <Modal
                 show={deleteModal}
                 onCancel={toggleDeleteModalHandler}
@@ -85,7 +98,10 @@ function MenuList(props) {
             >
                 <h2>Delete Modal</h2>
             </Modal>
-            {/* handles create form */}
+
+            */}
+            
+            {/*
             <Modal
                 show={createModal}
                 onCancel={toggleCreateModalHandler}
@@ -94,7 +110,7 @@ function MenuList(props) {
                 footer={<Button onClick={toggleCreateModalHandler}>Close</Button>}
             >
                 <h2>Create Modal</h2>
-            </Modal>
+            </Modal> */}
         </React.Fragment>
     )
 }

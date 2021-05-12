@@ -5,7 +5,7 @@ import NavigationHeader from "../NavigationHeader/NavigationHeader";
 
 import "./NavigationBar.css";
 
-function NavigationBar({ isAuthenticated=true }) {
+function NavigationBar() {
     return (
         <React.Fragment>
             <div className="navigationBar__navbar">
@@ -13,7 +13,7 @@ function NavigationBar({ isAuthenticated=true }) {
                     <NavigationHeader />
                 </div>
                 <div className="navigationBar__links">
-                    <NavigationLinks isAuthenticated={isAuthenticated} />
+                    <NavigationLinks />
                 </div>
             </div>
         </React.Fragment>

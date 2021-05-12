@@ -9,7 +9,11 @@ const validate = (value, validatorType) => {
     } 
     if (validatorType === "REQUIRE") {
         return isValid && value.trim().length > 0;
-    } else {
+    } 
+    if (validatorType === "PRICE") {
+        return isValid && !isNaN(value);
+    }
+    else {
         return false;
     }
 }

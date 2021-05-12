@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '../../../shared/components/Button/Button';
 import Input from "../../../shared/components/Input/Input";
 import useForm from '../../../shared/hooks/form-hook';
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../shared/context/auth-context";
 
 import "./Signup.css";
 
 function Signup() {
 
+    const auth = useContext(AuthContext);
     const [isSignedUp, setIsSignedUp] = useState(false);
 
     const onSignupHandler = (event) => {
         setIsSignedUp(true);
         console.log("Signed up.");
         console.log(formState.inputs);
+        // maybe login user here
+        auth.login();
         event.preventDefault();
     };
 

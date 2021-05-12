@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Input from "../../../shared/components/Input/Input";
 import Button from "../../../shared/components/Button/Button";
 import useForm from '../../../shared/hooks/form-hook';
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../shared/context/auth-context";
 
 import "./Login.css";
 
 function Login() {
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const auth = useContext(AuthContext);
 
     const onLoginHandler = (event) => {
-        setIsLoggedIn(true);
+        auth.login();
         console.log("Logged in.");
         console.log(formState.inputs);
         event.preventDefault();

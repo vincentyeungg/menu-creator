@@ -1,37 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from "../../Button/Button";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/auth-context";
+import { userId, menuId } from "../../../../TEMP_DATA";
 
 import "./NavigationLinks.css";
 
-function NavigationLinks({ isAuthenticated }) {
+function NavigationLinks() {
 
-    const userId = 'u1';
-    const menuId = 'm1';
+    const auth = useContext(AuthContext);
 
-    if (isAuthenticated) {
+    if (auth.isLoggedIn) {
         return (
             <ul className="navigationLinks">
                 <li className="navigationLinks__link">
-                    <Link to="/menus" style={{textDecoration: 'none'}}>
-                        <Button>Home</Button>
-                    </Link>
+                    <Button to="/menus">Home</Button>
                 </li>
+                {/* <li className="navigationLinks__link">
+                    <Button to="/menus">View Menus</Button>
+                </li> */}
                 <li className="navigationLinks__link">
-                    <Link to="/menus" style={{ textDecoration: 'none' }}>
-                        <Button>View Menus</Button>
-                    </Link>
-                </li>
-                <li className="navigationLinks__link">
-                    <Link to={`/${userId}/${menuId}`} style={{ textDecoration: 'none' }}>
-                        <Button>Your Menu</Button>
-                    </Link>
+                    <Button to={`/${userId}/viewMenus`}>View Menus</Button>
                 </li>
                 <li className="navigationLinks__link">
                     {/* will be a form later */}
-                    <Link to="/logout" style={{ textDecoration: 'none' }}>
-                        <Button>Logout</Button>
-                    </Link>
+                    <form onSubmit={auth.logout}>
+                        <Button type="submit">Logout</Button>
+                    </form>
                 </li>
             </ul>
         )
@@ -39,14 +34,10 @@ function NavigationLinks({ isAuthenticated }) {
         return (
             <ul className="navigationLinks">
                 <li className="navigationLinks__link">
-                    <Link to="/login" style={{ textDecoration: 'none' }}>
-                        <Button>Login</Button>
-                    </Link>
+                    <Button to="/login">Login</Button>
                 </li>
                 <li className="navigationLinks__link">
-                    <Link to="/signup" style={{ textDecoration: 'none' }}>
-                        <Button>Sign Up</Button>
-                    </Link>
+                    <Button to="/signup">Sign Up</Button>
                 </li>
             </ul>
         )
