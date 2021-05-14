@@ -12,6 +12,14 @@ router.get('/', usersControllers.getUsers);
 router.post('/login', usersControllers.login);
 
 // post request for sign up
-router.post('/signup', usersControllers.signup);
+// perform initial check on parameters
+router.post('/signup', 
+    [
+        check('firstname').not().isEmpty(),
+        check('lastname').not().isEmpty(),
+        check('email').normalizeEmail().isEmail(),
+        check('password').isLength({ min: 6 })
+    ], 
+    usersControllers.signup);
 
 module.exports = router;

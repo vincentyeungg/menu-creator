@@ -35,6 +35,16 @@ const login = async(req, res, next) => {
 
 // sign up
 const signup = async(req, res, next) => {
+    // validate the checks done from the router
+
+    // use 422 for well formed data, however incorrect semantically
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(new HttpError('Invalid inputs passed, please check your data.', 422));
+    }
+
+
+
     res.status(200).json(
         {message: "Signed up."}
     );

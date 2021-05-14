@@ -11,10 +11,20 @@ const menusController = require('../controllers/menu-controller');
 router.get('/', menusController.getMenus);
 
 // post request for creating a menu
-router.post('/', menusController.createMenu);
+router.post('/', 
+    [
+        check('title').not().isEmpty(),
+        check('description').not().isEmpty()
+    ],
+    menusController.createMenu);
 
 // patch request for editing menu by id
-router.patch('/:menuId', menusController.updateMenu);
+router.patch('/:menuId', 
+    [
+        check('title').not().isEmpty(),
+        check('description').not().isEmpty()
+    ],
+    menusController.updateMenu);
 
 // delete request for deleting menu by id
 router.delete('/:menuId', menusController.deleteMenu);

@@ -11,7 +11,7 @@ const validate = (value, validatorType) => {
         return isValid && value.trim().length > 0;
     } 
     if (validatorType === "PRICE") {
-        return isValid && !isNaN(value);
+        return isValid && !isNaN(value) && (Math.trunc(value) >= 0);
     }
     else {
         return false;

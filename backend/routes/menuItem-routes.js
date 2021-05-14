@@ -10,10 +10,22 @@ const menuItemsController = require('../controllers/menuItem-controller');
 router.get('/', menuItemsController.getMenuItems);
 
 // post request for creating a menu item
-router.post('/', menuItemsController.createMenuItem);
+router.post('/', 
+    [
+        check('title').not().isEmpty(),
+        check('description').not().isEmpty(),
+        check('price').isNumeric()
+    ],
+    menuItemsController.createMenuItem);
 
 // patch request for editing menu item by id
-router.patch('/:menuItemId', menuItemsController.updateMenuItem);
+router.patch('/:menuItemId', 
+    [
+        check('title').not().isEmpty(),
+        check('description').not().isEmpty(),
+        check('price').isNumeric()
+    ],
+    menuItemsController.updateMenuItem);
 
 // delete request for deleting menu item by id
 router.delete('/:menuItemId', menuItemsController.deleteMenuItem);
