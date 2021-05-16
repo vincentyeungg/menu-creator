@@ -10,6 +10,9 @@ const menusController = require('../controllers/menu-controller');
 // get request to retrieve all menus
 router.get('/', menusController.getMenus);
 
+// get request to retrieve all menus belonging to a specific user
+router.get('/user/:userId', menusController.getMenusByUserId);
+
 // post request for creating a menu
 router.post('/', 
     [

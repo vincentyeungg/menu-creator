@@ -18,6 +18,10 @@ const menuItemSchema = new Schema({
         type: String,
         required: true
     },
+    type: {
+        type: String,
+        required: true
+    },
     menu: {
         type: mongoose.Types.ObjectId,
         required: true,

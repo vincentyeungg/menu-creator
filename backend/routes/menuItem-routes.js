@@ -9,8 +9,11 @@ const menuItemsController = require('../controllers/menuItem-controller');
 // get request to retrieve all items
 router.get('/', menuItemsController.getMenuItems);
 
+// get request to retrieve all items for a specific menu
+router.get('/menu/:menuId', menuItemsController.getMenuItemsByMenuId);
+
 // post request for creating a menu item
-router.post('/', 
+router.post('/:menuId', 
     [
         check('title').not().isEmpty(),
         check('description').not().isEmpty(),

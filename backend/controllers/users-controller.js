@@ -4,9 +4,7 @@ const mongooseUniqueValidator = require('mongoose-unique-validator');
 const HttpError = require('../models/http-error');
 
 // models
-const Menu = require('../models/menu-model');
 const User = require('../models/user-model');
-const MenuItem = require('../models/menuItem-model');
 
 // get all users
 const getUsers = async(req, res, next) => {
@@ -28,8 +26,30 @@ const getUsers = async(req, res, next) => {
 
 // login
 const login = async(req, res, next) => {
+    // login requires email and password
+    const { email, password } = req.body;
+
+    let existingUser;
+
+    try {
+        existingUser = await User.findOne({ email: email });
+    } catch (error) {
+        const err = new HttpError('Login failed, please try again.', 500);
+        return next(err);
+    }
+
+    // if no existing users or password is incorrect
+    if (!existingUser || existingUser.password !== password) {
+        // 401 unauthorized
+        const error = new HttpError('Invalid credentials, could not log you in.', 401);
+        return next(error);
+    }
+
     res.status(200).json(
-        {message: "Logged in."}
+        {
+            message: "Logged in.",
+            user: existingUser.toObject({ getters: true })
+        }
     );
 };
 
@@ -43,10 +63,45 @@ const signup = async(req, res, next) => {
         return next(new HttpError('Invalid inputs passed, please check your data.', 422));
     }
 
+    // if no errors in body arguments
+    const { firstname, lastname, email, password } = req.body;
 
+    let existingUser;
+
+    try {
+        existingUser = await User.findOne({ email: email });
+    } catch (error) {
+        // something went wrong with server code 500
+        const err = new HttpError('Sign up failed, please try again.', 500);
+        return next(err);
+    }
+
+    // if a user with the same email is found
+    if (existingUser) {
+        // request is invalid but the issue is not in syntax or authentication
+        const err = new HttpError(`User with the email ${email} already exists. Please login instead.`, 422);
+        return next(err);
+    }
+
+    // if user didn't exist, then add them to the database
+    const createdUser = new User({
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        menus: []
+    });
+
+    // store model in collection
+    try {
+        await createdUser.save();
+    } catch (error) {
+        const err = new HttpError('Signup failed, please try again.', 500);
+        return next(err);
+    }
 
     res.status(200).json(
-        {message: "Signed up."}
+        {user: createdUser.toObject({ getters: true })}
     );
 };
 
