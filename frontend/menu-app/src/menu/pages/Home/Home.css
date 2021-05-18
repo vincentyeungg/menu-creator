@@ -1,0 +1,18 @@
+.menus__viewAllMenus {
+    display: flex;
+    margin: 2rem;
+    flex-direction: column;
+}
+
+.menu__menus {
+    list-style: none;
+}
+
+.menu__menus li{
+    padding: 0.3rem 0;
+}
+
+.menu__title {
+    text-align: center;
+    font-weight: 500;
+}

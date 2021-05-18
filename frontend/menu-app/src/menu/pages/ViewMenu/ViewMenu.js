@@ -9,13 +9,11 @@ import Input from "../../../shared/components/Input/Input";
 import Button from "../../../shared/components/Button/Button";
 import useForm from "../../../shared/hooks/form-hook";
 
-function ViewMenus() {
+function ViewMenu() {
 
     // should only display the menu
     const userId = useParams().userId;
     const menuId = useParams().menuId;
-
-    console.log(userId, menuId);
 
     return (
         <div>
@@ -29,4 +27,4 @@ function ViewMenus() {
     )
 }
 
-export default ViewMenus;
+export default ViewMenu;

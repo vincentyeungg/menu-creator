@@ -14,13 +14,13 @@ function NavigationLinks() {
         return (
             <ul className="navigationLinks">
                 <li className="navigationLinks__link">
-                    <Button to="/menus">Home</Button>
+                    <Button to="/home">Home</Button>
                 </li>
                 {/* <li className="navigationLinks__link">
                     <Button to="/menus">View Menus</Button>
                 </li> */}
                 <li className="navigationLinks__link">
-                    <Button to={`/${userId}/viewMenus`}>View Menus</Button>
+                    <Button to={`/${auth.userId}/viewMenus`}>My Menus</Button>
                 </li>
                 <li className="navigationLinks__link">
                     {/* will be a form later */}

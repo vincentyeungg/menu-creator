@@ -6,6 +6,8 @@ import { DUMMY_APPS, DUMMY_MAINS, DUMMY_DESSERTS, DUMMY_BEVERAGES } from "../../
 import "./MenuSection.css";
 
 function MenuSection() {
+    // need to pull menu items according to the menu id
+    // may need to sort array into food type categories
 
     return (
         <div>

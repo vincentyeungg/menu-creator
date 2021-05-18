@@ -7,16 +7,6 @@ import "./CreateItem.css";
 
 function CreateItem() {
 
-    const submitFormHandler = (event) => {
-        console.log(
-            {
-                ...(formState.inputs),
-                itemType
-            }
-        );
-        event.preventDefault();
-    };
-
     const [itemType, setItemType] = useState("");
 
     const [formState, inputHandler] = useForm(
@@ -38,6 +28,16 @@ function CreateItem() {
         // initial form validity
         false
     );
+
+    const submitFormHandler = (event) => {
+        console.log(
+            {
+                ...(formState.inputs),
+                itemType
+            }
+        );
+        event.preventDefault();
+    };
 
     const onOptionClick = (e) => {
         const newType = e.target.innerText;

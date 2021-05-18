@@ -14,7 +14,7 @@ const getMenus = async(req, res, next) => {
 
     // get all documents
     try {
-        menus = await Menu.find({});
+        menus = await Menu.find({}).populate('creator');
     } catch (error) {
         const err = new HttpError('Fetching menus failed, please try again later.', 500);
         return next(err);
@@ -32,12 +32,12 @@ const getMenusByUserId = async(req, res, next) => {
     const userId = req.params.userId;
     let menus;
     try {
-        menus = await Menu.find({ 'creator': userId });
+        menus = await Menu.find({ 'creator': userId }).populate('creator');
     } catch (error) {
         const err = new HttpError('Something went wrong, could not find menus.', 500);
         return next(err);
     }
-    if (!menus || menus.length === 0) {
+    if (!menus) {
         return next(new HttpError('Could not find menus for given user Id.', 404));
     }
     res.status(200).json({
@@ -162,7 +162,7 @@ const deleteMenu = async(req, res, next) => {
         await menu.remove({ session: session });
         menu.creator.menus.pull(menu);
         await menu.creator.save({ session: session });
-        await MenuItem.deleteMany({ 'menu': menuId })
+        await MenuItem.deleteMany({ 'menu': menuId });
         await session.commitTransaction();
     } catch (error) {
         const err = new HttpError('Something went wrong, could not delete menu.', 500);

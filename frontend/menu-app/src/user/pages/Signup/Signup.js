@@ -1,25 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import Button from '../../../shared/components/Button/Button';
 import Input from "../../../shared/components/Input/Input";
 import useForm from '../../../shared/hooks/form-hook';
+import useHttpClient from "../../../shared/hooks/http-hook";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../shared/context/auth-context";
+import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 
 import "./Signup.css";
 
 function Signup() {
-
     const auth = useContext(AuthContext);
-    const [isSignedUp, setIsSignedUp] = useState(false);
-
-    const onSignupHandler = (event) => {
-        setIsSignedUp(true);
-        console.log("Signed up.");
-        console.log(formState.inputs);
-        // maybe login user here
-        auth.login();
-        event.preventDefault();
-    };
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
     const [formState, inputHandler] = useForm(
         // initial form inputs for login page
@@ -49,63 +42,89 @@ function Signup() {
         false
     );
 
+    const onSignupHandler = async (event) => {
+        event.preventDefault();
+        try {
+            const responseData = await sendRequest(
+                'http://localhost:5000/api/users/signup', 
+                'POST', 
+                JSON.stringify({
+                    firstname: formState.inputs.firstname.value,
+                    lastname: formState.inputs.lastname.value,
+                    email: formState.inputs.email.value,
+                    password: formState.inputs.password.value
+                }),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+            auth.login(responseData.user.id);
+        } catch (error) {
+            // error is handled in custom hook, however it will throw error thus use try-catch here
+        }      
+    };
+
     return (
-        <form onSubmit={onSignupHandler}>
-            <Input 
-                element="input"
-                id="firstname"
-                type="text"
-                label="First Name"
-                errorText="Please enter your first name."
-                onInput={inputHandler}
-                validator="REQUIRE"
-            />
-            <Input 
-                element="input"
-                id="lastname"
-                type="text"
-                label="Last Name"
-                errorText="Please enter your last name."
-                onInput={inputHandler}
-                validator="REQUIRE"
-            />
-            <Input 
-                element="input"
-                id="email"
-                type="email"
-                label="Email"
-                errorText="Please enter your email address."
-                onInput={inputHandler}
-                validator="EMAIL"
-            />
-            <Input 
-                element="input"
-                id="password"
-                type="password"
-                label="Password"
-                errorText="Please enter a password of at least 6 characters."
-                onInput={inputHandler}
-                validator="PASSWORD"
-            />
-            <Input 
-                element="input"
-                id="confirmPassword"
-                type="password"
-                label="Confirm Password"
-                errorText="Passwords do not match. Please re-enter your password."
-                onInput={inputHandler}
-                validator="PASSWORD"
-            />
-            <Button 
-                type="submit" 
-                disabled={!formState.isValid || !(formState.inputs.password.value === formState.inputs.confirmPassword.value)}
-            >
-                Sign Up
-            </Button>
-            <p className="signup__description">
-                Already have an account? Click <Link to="/login">here</Link> to login!
-            </p>
-        </form>
+        <React.Fragment>
+            <ErrorModal error={error} onClear={clearError} />
+            {isLoading && <LoadingSpinner asOverlay />}
+            <form onSubmit={onSignupHandler}>
+                <Input 
+                    element="input"
+                    id="firstname"
+                    type="text"
+                    label="First Name"
+                    errorText="Please enter your first name."
+                    onInput={inputHandler}
+                    validator="REQUIRE"
+                />
+                <Input 
+                    element="input"
+                    id="lastname"
+                    type="text"
+                    label="Last Name"
+                    errorText="Please enter your last name."
+                    onInput={inputHandler}
+                    validator="REQUIRE"
+                />
+                <Input 
+                    element="input"
+                    id="email"
+                    type="email"
+                    label="Email"
+                    errorText="Please enter your email address."
+                    onInput={inputHandler}
+                    validator="EMAIL"
+                />
+                <Input 
+                    element="input"
+                    id="password"
+                    type="password"
+                    label="Password"
+                    errorText="Please enter a password of at least 6 characters."
+                    onInput={inputHandler}
+                    validator="PASSWORD"
+                />
+                <Input 
+                    element="input"
+                    id="confirmPassword"
+                    type="password"
+                    label="Confirm Password"
+                    errorText="Passwords do not match. Please re-enter your password."
+                    onInput={inputHandler}
+                    validator="PASSWORD"
+                />
+                <Button 
+                    type="submit" 
+                    disabled={!formState.isValid || !(formState.inputs.password.value === formState.inputs.confirmPassword.value)}
+                >
+                    Sign Up
+                </Button>
+                <p className="signup__description">
+                    Already have an account? Click <Link to="/login">here</Link> to login!
+                </p>
+            </form>
+        </React.Fragment>
     )
 }
 

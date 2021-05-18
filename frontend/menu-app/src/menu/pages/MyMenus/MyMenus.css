@@ -1,0 +1,13 @@
+.menus__container {
+    display: flex;
+    margin: 2rem;
+    flex-direction: column;
+}
+
+.container__menu {
+    list-style: none;
+}
+
+.container__menu li{
+    padding: 0.3rem 0;
+}

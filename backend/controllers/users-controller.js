@@ -101,7 +101,10 @@ const signup = async(req, res, next) => {
     }
 
     res.status(200).json(
-        {user: createdUser.toObject({ getters: true })}
+        {
+            message: "Signed up.",
+            user: createdUser.toObject({ getters: true })
+        }
     );
 };
 
