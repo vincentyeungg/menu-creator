@@ -1,10 +1,10 @@
 import React from 'react';
 import './MenuTitle.css';
 
-function MenuTitle() {
+function MenuTitle(props) {
     return (
         <React.Fragment>
-            <h1 className="menuTitle">Your Menu</h1>
+            <h1 className="menuTitle">{props.title}</h1>
         </React.Fragment>
     )
 }

@@ -12,6 +12,9 @@ router.get('/', menuItemsController.getMenuItems);
 // get request to retrieve all items for a specific menu
 router.get('/menu/:menuId', menuItemsController.getMenuItemsByMenuId);
 
+// get request to retrieve specific item given id
+router.get('/:itemId', menuItemsController.getMenuItemByItemId);
+
 // post request for creating a menu item
 router.post('/:menuId', 
     [

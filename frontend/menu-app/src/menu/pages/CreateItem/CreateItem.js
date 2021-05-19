@@ -73,6 +73,7 @@ function CreateItem() {
                     validator={"PRICE"}
                     onInput={inputHandler}
                 />
+                <p>Type: {itemType === "" ? "Please select a type for this item below." : itemType}</p>
                 <div>
                     <Button type="button" onClick={onOptionClick}>Appetizer</Button>
                     <Button type="button" onClick={onOptionClick}>Main</Button>

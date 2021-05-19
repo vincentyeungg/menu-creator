@@ -43,13 +43,13 @@ function App() {
         <Route path="/:userId/:menuId/editMenu/removeItem/:itemId">
           <h1>REMOVE FORM</h1>
         </Route>
-        <Route path="/:userId/menu.:menuId/editMenu">
+        <Route path="/:userId/menu/:menuId/editMenu">
           <EditMenu />
         </Route>
         <Route path="/:userId/menu/:menuId/deleteMenu">
           <h1>DELETE MENU</h1>
         </Route>
-        <Route path="/:userId/:menuId/createItem">
+        <Route path="/:userId/menu/:menuId/createItem">
           <CreateItem />
         </Route>
         <Route path="/:userId/createMenu">

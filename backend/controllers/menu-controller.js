@@ -28,6 +28,7 @@ const getMenus = async(req, res, next) => {
     );
 };
 
+// get menu by user id
 const getMenusByUserId = async(req, res, next) => {
     const userId = req.params.userId;
     let menus;
@@ -44,6 +45,24 @@ const getMenusByUserId = async(req, res, next) => {
         menus: menus.map(menu => (
             menu.toObject({ getters: true })
         ))
+    });
+};
+
+// get menu by menuId
+const getMenusByMenuId = async(req, res, next) => {
+    const menuId = req.params.menuId;
+    let menu;
+    try {
+        menu = await Menu.findById(menuId);
+    } catch (error) {
+        const err = new HttpError('Something went wrong, could not find menu.', 500);
+        return next(err);
+    }
+    if(!menu) {
+        return next(new HttpError('Could not find the menu for the given id.', 404));
+    }
+    res.status(200).json({
+        menu: menu
     });
 };
 
@@ -176,6 +195,7 @@ const deleteMenu = async(req, res, next) => {
 
 exports.getMenus = getMenus;
 exports.getMenusByUserId = getMenusByUserId;
+exports.getMenusByMenuId = getMenusByMenuId;
 exports.createMenu = createMenu;
 exports.updateMenu = updateMenu;
 exports.deleteMenu = deleteMenu;

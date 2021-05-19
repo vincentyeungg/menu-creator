@@ -33,18 +33,35 @@ const getMenuItemsByMenuId = async(req, res, next) => {
     const menuId = req.params.menuId;
     let menu;
     try {
-        menu = await Menu.findById(menuId);
+        menu = await Menu.findById(menuId).populate('menuItem');
     } catch (error) {
         const err = new HttpError('Something went wrong, could not find menu.', 500);
         return next(err);
     }
-    // if a menu isn't found, or if the menu doesn't have any items currently
-    if (!menu || menu.menuItem.length === 0) {
+    if (!menu) {
         return next(new HttpError('Could not find any items for the given menu Id.', 404));
     }
 
     res.status(200).json({
         menuItems: menu.menuItem.toObject({ getters: true })
+    });
+};
+
+// retrieve item given item id
+const getMenuItemByItemId = async(req, res, next) => {
+    const itemId = req.params.itemId;
+    let item;
+    try {
+        item = await MenuItem.findById(itemId);
+    } catch (error) {
+        const err = new HttpError('Something went wrong, could not find item.', 500);
+        return next(err);
+    }
+    if (!item) {
+        return next(new HttpError('Could not find item for the given item Id.', 404));
+    }
+    res.status(200).json({
+        menuItem: item
     });
 };
 
@@ -178,6 +195,7 @@ const deleteMenuItem = async(req, res, next) => {
 
 exports.getMenuItems = getMenuItems;
 exports.getMenuItemsByMenuId = getMenuItemsByMenuId;
+exports.getMenuItemByItemId = getMenuItemByItemId;
 exports.createMenuItem = createMenuItem;
 exports.updateMenuItem = updateMenuItem;
 exports.deleteMenuItem = deleteMenuItem;

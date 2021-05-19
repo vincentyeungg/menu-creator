@@ -4,12 +4,12 @@ import MenuOptions from "../MenuOptions/MenuOptions";
 
 import "./MenuHeader.css";
 
-function MenuHeader() {
+function MenuHeader(props) {
     return (
         <React.Fragment>
             <hr className="horizontalRow__bold" />
             <div className="menu__header">
-                <MenuTitle />
+                <MenuTitle title={props.title} />
                 <MenuOptions />
             </div>
             <hr className="horizontalRow__bold" />

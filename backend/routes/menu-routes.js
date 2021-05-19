@@ -13,6 +13,9 @@ router.get('/', menusController.getMenus);
 // get request to retrieve all menus belonging to a specific user
 router.get('/user/:userId', menusController.getMenusByUserId);
 
+// get request to retrieve specific menu given menu id
+router.get('/:menuId', menusController.getMenusByMenuId);
+
 // post request for creating a menu
 router.post('/', 
     [

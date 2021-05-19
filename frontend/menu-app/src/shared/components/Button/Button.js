@@ -7,7 +7,6 @@ function Button(props) {
     const getItem = () => {
         const identifier = {
             id: props.id,
-            creator: props.creator,
             menu: props.menu,
             title: props.title,
             description: props.description,
