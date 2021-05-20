@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import Button from '../../../shared/components/Button/Button';
 import Input from '../../../shared/components/Input/Input';
 import useForm from "../../../shared/hooks/form-hook";
+import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
+import useHttpClient from '../../../shared/hooks/http-hook';
+import { AuthContext } from "../../../shared/context/auth-context";
 
 import "./CreateItem.css";
 
 function CreateItem() {
-
+    const auth = useContext(AuthContext);
+    const menuId = useParams().menuId;
+    const { isLoading, error, sendRequest, clearError } = useHttpClient();
+    const [loadedItem, setLoadedItem] = useState();
+    const history = useHistory();
     const [itemType, setItemType] = useState("");
 
     const [formState, inputHandler] = useForm(
@@ -29,14 +38,26 @@ function CreateItem() {
         false
     );
 
-    const submitFormHandler = (event) => {
-        console.log(
-            {
-                ...(formState.inputs),
-                itemType
-            }
-        );
+    const submitFormHandler = async (event) => {
         event.preventDefault();
+        try {
+            const responseData = await sendRequest(
+                `http://localhost:5000/api/menuItems/${menuId}`,
+                'POST',
+                JSON.stringify({
+                    title: formState.inputs.title.value,
+                    description: formState.inputs.description.value,
+                    price: formState.inputs.price.value,
+                    type: itemType
+                }),
+                {
+                    'Content-Type': 'application/json'
+                }
+            );
+            history.push(`/${auth.userId}/menu/${menuId}/editMenu`);
+        } catch (error) {
+            // error is handled in custom hook, however it will throw error thus use try-catch here
+        }
     };
 
     const onOptionClick = (e) => {
@@ -46,6 +67,8 @@ function CreateItem() {
 
     return (
         <div>
+            <ErrorModal error={error} onClear={clearError} />
+            {isLoading && <LoadingSpinner asOverlay />}
             <form onSubmit={submitFormHandler}>
                 <Input 
                     element="input"

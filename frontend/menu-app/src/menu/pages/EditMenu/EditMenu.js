@@ -20,30 +20,6 @@ function EditMenu() {
     const [loadedMenu, setLoadedMenu] = useState();
     const [loadedMenuItems, setLoadedMenuItems] = useState();
 
-    const [formState, inputHandler] = useForm(
-        // initial form inputs for login page
-        {
-            title: {
-                value: '',
-                isValid: false
-            },
-            description: {
-                value: '',
-                isValid: false
-            },
-            price: {
-                value: '',
-                isValid: false
-            },
-        },
-        // initial form validity
-        false
-    );
-
-    const onItemClick = (item) => {
-        console.log(item)
-    }
-
     //intially load the menu contents here on every refresh
     useEffect(()=>{
         const fetchMenu = async() => {
@@ -66,16 +42,14 @@ function EditMenu() {
         fetchMenuItems();
     }, [sendRequest]);
 
-    console.log(loadedMenuItems)
-
     return (
         <div>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedMenu && loadedMenuItems &&
                 <React.Fragment>
-                    <h2>EDIT MENU</h2>
                     <p>Click <Button to={`/${auth.userId}/menu/${menuId}/createItem`}>here</Button> to create a new item.</p>
+                    <p>Click <Button to={`/${auth.userId}/menu/${menuId}/editMenu/edit`}>here</Button> to edit the menu title and description.</p>
                     <ul>
                         {loadedMenuItems.map(item => (
                             <li key={item._id}>
@@ -89,27 +63,11 @@ function EditMenu() {
                                 />
                                 <Button 
                                     to={`/${auth.userId}/${menuId}/editMenu/editItem/${item._id}`}
-                                    id={item._id} 
-                                    menu={item.menu}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                    image={item.image}
-                                    onClick={onItemClick}
-                                    editBtn={true}
                                 >
                                     Edit Item
                                 </Button>
                                 <Button 
                                     to={`/${auth.userId}/${menuId}/editMenu/removeItem/${item._id}`}
-                                    id={item._id} 
-                                    menu={item.menu}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                    image={item.image}
-                                    onClick={onItemClick}
-                                    editBtn={true}
                                 >
                                     Delete Item
                                 </Button>

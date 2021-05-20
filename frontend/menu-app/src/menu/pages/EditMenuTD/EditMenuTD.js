@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { userId, menuId, DUMMY_APPS, DUMMY_MAINS, DUMMY_DESSERTS, DUMMY_BEVERAGES } from "../../../TEMP_DATA";
-
 import Input from "../../../shared/components/Input/Input";
 import Button from "../../../shared/components/Button/Button";
 import useForm from "../../../shared/hooks/form-hook";
@@ -10,12 +8,11 @@ import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../../shared/context/auth-context";
 
-function UpdateItem() {
+function EditMenuTD() {
     const auth = useContext(AuthContext);
-    const itemId = useParams().itemId;
     const menuId = useParams().menuId;
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [loadedItem, setLoadedItem] = useState();
+    const [loadedMenu, setLoadedMenu] = useState();
     const history = useHistory();
 
     const [formState, inputHandler] = useForm(
@@ -28,10 +25,6 @@ function UpdateItem() {
             description: {
                 value: "",
                 isValid: true
-            },
-            price: {
-                value: "",
-                isValid: true
             }
         },
         // initial form validity
@@ -39,27 +32,26 @@ function UpdateItem() {
     );
 
     useEffect(() => {
-        const fetchItem = async() => {
+        const fetchMenu = async() => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/menuItems/${itemId}`);
-                setLoadedItem(responseData.menuItem);
+                const responseData = await sendRequest(`http://localhost:5000/api/menus/${menuId}`);
+                setLoadedMenu(responseData.menu);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here
             }
         };
-        fetchItem();
+        fetchMenu();
     }, [sendRequest]);
 
-    const onUpdateItem = async (event) => {
+    const onUpdateMenu = async (event) => {
         event.preventDefault();
         try {
             const responseData = await sendRequest(
-                `http://localhost:5000/api/menuItems/${itemId}`,
+                `http://localhost:5000/api/menus/${menuId}`,
                 'PATCH',
                 JSON.stringify({
                     title: formState.inputs.title.value,
                     description: formState.inputs.description.value,
-                    price: formState.inputs.price.value
                 }),
                 {
                     'Content-Type': 'application/json'
@@ -76,39 +68,28 @@ function UpdateItem() {
         <div>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            {!isLoading && loadedItem && 
+            {!isLoading && loadedMenu && 
                 <React.Fragment>
-                    <form onSubmit={onUpdateItem}>
+                    <form onSubmit={onUpdateMenu}>
                         <Input 
                             id="title"
                             element="input"
                             type="text"
-                            label="Item Name"
+                            label="Menu Title"
                             validator={"REQUIRE"}
-                            errorText="Please enter a valid title for your menu item."
+                            errorText="Please enter a valid title for your menu."
                             onInput={inputHandler}
-                            initialValue={loadedItem.title}
+                            initialValue={loadedMenu.title}
                             initialValid={true}
                         />
                         <Input 
                             id="description"
                             element="textarea"
-                            label="Item Description"
+                            label="Menu Description"
                             validator={"REQUIRE"}
-                            errorText="Please enter a valid description for your menu item."
+                            errorText="Please enter a valid description for your menu."
                             onInput={inputHandler}
-                            initialValue={loadedItem.description}
-                            initialValid={true}
-                        />
-                        <Input 
-                            id="price"
-                            element="text"
-                            type="text"
-                            label="Item Price"
-                            validator={"PRICE"}
-                            errorText="Please enter a valid price for your menu item."
-                            onInput={inputHandler}
-                            initialValue={loadedItem.price}
+                            initialValue={loadedMenu.description}
                             initialValid={true}
                         />
                         <Button type="submit" disabled={!formState.isValid}>
@@ -122,4 +103,4 @@ function UpdateItem() {
     )
 }
 
-export default UpdateItem;
+export default EditMenuTD;

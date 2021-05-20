@@ -4,6 +4,9 @@ import Footer from "./shared/components/Footer/Footer";
 import Login from "./user/pages/Login/Login";
 import Signup from "./user/pages/Signup/Signup";
 import CreateItem from "./menu/pages/CreateItem/CreateItem";
+import RemoveItem from "./menu/components/RemoveItem/RemoveItem";
+import RemoveMenu from "./menu/pages/RemoveMenu/RemoveMenu";
+import EditMenuTD from "./menu/pages/EditMenuTD/EditMenuTD";
 import MyMenus from "./menu/pages/MyMenus/MyMenus";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import { useState, useCallback } from 'react';
@@ -37,17 +40,20 @@ function App() {
         <Route path="/home" exact>
           <Home />
         </Route>
+        <Route path="/:userId/menu/:menuId/editMenu/edit">
+          <EditMenuTD />
+        </Route>
         <Route path="/:userId/:menuId/editMenu/editItem/:itemId">
           <UpdateItem />
         </Route>
         <Route path="/:userId/:menuId/editMenu/removeItem/:itemId">
-          <h1>REMOVE FORM</h1>
+          <RemoveItem />
         </Route>
         <Route path="/:userId/menu/:menuId/editMenu">
           <EditMenu />
         </Route>
         <Route path="/:userId/menu/:menuId/deleteMenu">
-          <h1>DELETE MENU</h1>
+          <RemoveMenu />
         </Route>
         <Route path="/:userId/menu/:menuId/createItem">
           <CreateItem />
