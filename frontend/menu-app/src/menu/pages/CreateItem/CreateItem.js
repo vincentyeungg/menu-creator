@@ -14,7 +14,6 @@ function CreateItem() {
     const auth = useContext(AuthContext);
     const menuId = useParams().menuId;
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [loadedItem, setLoadedItem] = useState();
     const history = useHistory();
     const [itemType, setItemType] = useState("");
 

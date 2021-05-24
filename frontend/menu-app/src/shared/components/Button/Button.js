@@ -10,7 +10,7 @@ function Button(props) {
                 to={props.to}
                 exact={props.exact}
             >
-                <button className="button" onClick={props.onClick} disabled={props.disabled}>
+                <button className={props.style === "delete" ? "button-delete" : "button"} onClick={props.onClick} disabled={props.disabled}>
                     {props.children}
                 </button>
             </Link>
@@ -18,7 +18,7 @@ function Button(props) {
     }
 
     return (
-        <button className="button" onClick={props.onClick} disabled={props.disabled} type={props.type}>
+        <button className={props.style === "delete" ? "button-delete" : "button"} onClick={props.onClick} disabled={props.disabled} type={props.type}>
             {props.children}
         </button>
     )

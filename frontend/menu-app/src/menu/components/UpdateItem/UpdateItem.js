@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { userId, menuId, DUMMY_APPS, DUMMY_MAINS, DUMMY_DESSERTS, DUMMY_BEVERAGES } from "../../../TEMP_DATA";
 
 import Input from "../../../shared/components/Input/Input";
 import Button from "../../../shared/components/Button/Button";
@@ -48,7 +47,7 @@ function UpdateItem() {
             }
         };
         fetchItem();
-    }, [sendRequest]);
+    }, [sendRequest, itemId]);
 
     const onUpdateItem = async (event) => {
         event.preventDefault();

@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
 import Button from "../../Button/Button";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/auth-context";
-import { userId, menuId } from "../../../../TEMP_DATA";
 
 import "./NavigationLinks.css";
 
 function NavigationLinks() {
-
     const auth = useContext(AuthContext);
 
     if (auth.isLoggedIn) {
@@ -16,14 +13,10 @@ function NavigationLinks() {
                 <li className="navigationLinks__link">
                     <Button to="/home">Home</Button>
                 </li>
-                {/* <li className="navigationLinks__link">
-                    <Button to="/menus">View Menus</Button>
-                </li> */}
                 <li className="navigationLinks__link">
                     <Button to={`/${auth.userId}/viewMenus`}>My Menus</Button>
                 </li>
                 <li className="navigationLinks__link">
-                    {/* will be a form later */}
                     <form onSubmit={auth.logout}>
                         <Button type="submit">Logout</Button>
                     </form>

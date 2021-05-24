@@ -4,9 +4,8 @@ import useHttpClient from '../../../shared/hooks/http-hook';
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../../shared/context/auth-context";
-import useForm from "../../../shared/hooks/form-hook";
-import Input from '../../../shared/components/Input/Input';
 import Button from '../../../shared/components/Button/Button';
+import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
 function RemoveMenu() {
     const auth = useContext(AuthContext);
@@ -44,7 +43,7 @@ function RemoveMenu() {
         <div>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            {!isLoading && loadedMenu && 
+            {!isLoading && loadedMenu && isMenuOwner(loadedMenu, auth.userId) && 
                 <div className="removeMenu__menuItem">
                     <div className="menuItem__description">
                         <h1>{loadedMenu.title}</h1>
@@ -54,7 +53,7 @@ function RemoveMenu() {
                         <p>Are you sure you want to delete this menu? Please note that this action cannot be undone.</p>
                     </div>
                     <Button to={`/${auth.userId}/menu/${menuId}`}>Cancel</Button>
-                    <Button onClick={deleteHandler}>Delete</Button>
+                    <Button style="delete" onClick={deleteHandler}>Delete</Button>
                 </div>
             }
         </div>

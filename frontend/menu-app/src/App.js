@@ -1,6 +1,5 @@
 import Home from './menu/pages/Home/Home';
 import NavBar from './shared/components/Navigation/NavigationBar/NavigationBar';
-import Footer from "./shared/components/Footer/Footer";
 import Login from "./user/pages/Login/Login";
 import Signup from "./user/pages/Signup/Signup";
 import CreateItem from "./menu/pages/CreateItem/CreateItem";

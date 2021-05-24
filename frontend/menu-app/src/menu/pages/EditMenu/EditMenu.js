@@ -1,16 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Input from '../../../shared/components/Input/Input';
-import useForm from "../../../shared/hooks/form-hook";
 import Button from "../../../shared/components/Button/Button";
 import MenuItem from "../../components/MenuItem/MenuItem";
-import Modal from "../../../shared/components/Modal/Modal";
-import UpdateItem from "../../components/UpdateItem/UpdateItem";
 import { AuthContext } from "../../../shared/context/auth-context";
 import useHttpClient from "../../../shared/hooks/http-hook";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
-import { userId, menuId, DUMMY_APPS, DUMMY_MAINS, DUMMY_DESSERTS, DUMMY_BEVERAGES } from "../../../TEMP_DATA";
+import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
 function EditMenu() {
 
@@ -46,7 +42,7 @@ function EditMenu() {
         <div>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            {!isLoading && loadedMenu && loadedMenuItems &&
+            {!isLoading && loadedMenu && loadedMenuItems && isMenuOwner(loadedMenu, auth.userId) && 
                 <React.Fragment>
                     <p>Click <Button to={`/${auth.userId}/menu/${menuId}/createItem`}>here</Button> to create a new item.</p>
                     <p>Click <Button to={`/${auth.userId}/menu/${menuId}/editMenu/edit`}>here</Button> to edit the menu title and description.</p>
@@ -68,6 +64,7 @@ function EditMenu() {
                                 </Button>
                                 <Button 
                                     to={`/${auth.userId}/${menuId}/editMenu/removeItem/${item._id}`}
+                                    style="delete"
                                 >
                                     Delete Item
                                 </Button>

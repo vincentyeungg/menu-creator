@@ -11,3 +11,16 @@
 .container__menu li{
     padding: 0.3rem 0;
 }
+
+.menus__createMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    flex-direction: column;
+}
+
+h2 {
+    font-weight: lighter;
+    margin: 1rem;
+}

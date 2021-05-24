@@ -6,8 +6,6 @@ import useHttpClient from '../../../shared/hooks/http-hook';
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 
-import { userId, menuId, MENUS } from "../../../TEMP_DATA";
-
 import "./MyMenus.css";
 
 function MyMenus() {
@@ -32,23 +30,30 @@ function MyMenus() {
             <React.Fragment>
                 <ErrorModal error={error} onClear={clearError} />
                 {isLoading && <LoadingSpinner asOverlay />}
-                <p>Click <Button to={`/${auth.userId}/createMenu`}>here</Button> to create a new menu.</p>
-                <div className="menus__container">
-                    <h1>Your Menus</h1>
-                    <ul className="container__menu">
-                        {loadedMenus.map(menu => (
-                            <li>
-                                <ContentCard 
-                                    key={menu.id}
-                                    title={menu.title}
-                                    description={menu.description}
-                                    creator={menu.creator.firstname + " " + menu.creator.lastname}
-                                />
-                                <Button to={`/${auth.userId}/menu/${menu.id}`}>View Menu</Button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                {!isLoading && 
+                    <React.Fragment>
+                        <div className="menus__createMenu">
+                            <h2>Have other ideas for another menu?</h2>
+                            <p>Click <Button to={`/${auth.userId}/createMenu`}>here</Button> to create a new menu.</p>
+                        </div>
+                        <div className="menus__container">
+                            <h1>Your Menus</h1>
+                            <ul className="container__menu">
+                                {loadedMenus.map(menu => (
+                                    <li>
+                                        <ContentCard 
+                                            key={menu.id}
+                                            title={menu.title}
+                                            description={menu.description}
+                                            creator={menu.creator.firstname + " " + menu.creator.lastname}
+                                        />
+                                        <Button to={`/${auth.userId}/menu/${menu.id}`}>View Menu</Button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </React.Fragment>
+                }
             </React.Fragment>
         )
     } else {

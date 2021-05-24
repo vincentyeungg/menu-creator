@@ -2,12 +2,10 @@ import React from 'react';
 import MenuList from "../MenuList/MenuList";
 import HorizontalRow from "../HorizontalRow/HorizontalRow";
 import { sortMenu } from "../../../shared/utils/sortItems";
-import { DUMMY_APPS, DUMMY_MAINS, DUMMY_DESSERTS, DUMMY_BEVERAGES } from "../../../TEMP_DATA";
 
 import "./MenuSection.css";
 
 function MenuSection(props) {
-
     const { appetizers, mains, desserts, beverages } = sortMenu(props.items);
 
     return (

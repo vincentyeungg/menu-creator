@@ -6,8 +6,6 @@ import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpi
 import useHttpClient from "../../../shared/hooks/http-hook";
 import { AuthContext } from "../../../shared/context/auth-context";
 
-import { userId, menuId, MENUS } from "../../../TEMP_DATA";
-
 import "./Home.css";
 
 function Home() {
@@ -37,7 +35,7 @@ function Home() {
                         <h1 className="menu__title">All Menus</h1>
                         <ul className="menu__menus">
                             {loadedMenus.map(menu => (
-                                <li>
+                                <li key={menu.id}>
                                     <ContentCard 
                                         key={menu.id}
                                         title={menu.title}

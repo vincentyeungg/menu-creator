@@ -7,6 +7,7 @@ import useHttpClient from '../../../shared/hooks/http-hook';
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../../shared/context/auth-context";
+import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
 function EditMenuTD() {
     const auth = useContext(AuthContext);
@@ -68,7 +69,7 @@ function EditMenuTD() {
         <div>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            {!isLoading && loadedMenu && 
+            {!isLoading && loadedMenu && isMenuOwner(loadedMenu, auth.userId) && 
                 <React.Fragment>
                     <form onSubmit={onUpdateMenu}>
                         <Input 

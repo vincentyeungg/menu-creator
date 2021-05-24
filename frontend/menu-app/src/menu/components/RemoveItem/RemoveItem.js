@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Input from "../../../shared/components/Input/Input";
 import Button from "../../../shared/components/Button/Button";
 import useHttpClient from '../../../shared/hooks/http-hook';
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
@@ -10,7 +9,7 @@ import MenuItem from "../../../menu/components/MenuItem/MenuItem";
 
 import "./RemoveItem.css";
 
-function RemoveItem(props) {
+function RemoveItem() {
     const auth = useContext(AuthContext);
     const itemId = useParams().itemId;
     const menuId = useParams().menuId;
@@ -28,7 +27,7 @@ function RemoveItem(props) {
             }
         };
         fetchItem();
-    }, [sendRequest]);
+    }, [sendRequest, itemId]);
     
     const deleteHandler = async (event) => {
         event.preventDefault();
@@ -60,7 +59,7 @@ function RemoveItem(props) {
                     <p>Are you sure you want to delete this item from the menu? Please note this action cannot be undone.</p>
                     <div className="options">
                         <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Cancel</Button>
-                        <Button onClick={deleteHandler}>Delete</Button>
+                        <Button style={"delete"} onClick={deleteHandler}>Delete</Button>
                     </div>
                 </div>
             }
