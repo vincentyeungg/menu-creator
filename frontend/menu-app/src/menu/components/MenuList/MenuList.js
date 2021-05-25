@@ -10,7 +10,7 @@ function MenuList(props) {
     return (
         <React.Fragment>
             <h2 className="menuList_sectionName">{props.sectionName}</h2>
-            {items.length === 0 ? (<h2 className="noItems_msge">No {props.sectionName} added.</h2>) : 
+            {items.length === 0 ? (<h2 className="noItems_msge">No {props.sectionName} added</h2>) : 
             <div className="menuList__container">
                 <ul className="menuList__list">
                     {items.map(item => (

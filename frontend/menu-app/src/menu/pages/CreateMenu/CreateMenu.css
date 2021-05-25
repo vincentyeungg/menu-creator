@@ -1,0 +1,17 @@
+.createMenu__form {
+    width: 50%;
+    margin: auto;
+}
+
+.createMenu__container {
+    margin: 150px;
+}
+
+.createMenu__title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.createMenu__btn {
+    text-align: center;
+}

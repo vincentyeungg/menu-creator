@@ -1,0 +1,24 @@
+.removeItem__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 100px;
+}
+
+.removeItem__title {
+    font-weight: 300;
+    font-size: 3rem;
+}
+
+.removeItem__options {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.removeItem__btns Button {
+    margin: 1rem;
+}

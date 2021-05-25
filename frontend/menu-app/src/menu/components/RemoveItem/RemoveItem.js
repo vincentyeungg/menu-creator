@@ -43,11 +43,12 @@ function RemoveItem() {
     };
 
     return (
-        <div>
+        <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedItem && 
-                <div>
+                <div className="removeItem__container">
+                    <h2 className="removeItem__title">Remove Item</h2>
                     <MenuItem 
                         id={loadedItem._id}
                         title={loadedItem.title}
@@ -56,14 +57,16 @@ function RemoveItem() {
                         image={loadedItem.image}
                         menu={loadedItem.menu}
                     />
-                    <p>Are you sure you want to delete this item from the menu? Please note this action cannot be undone.</p>
-                    <div className="options">
-                        <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Cancel</Button>
-                        <Button style={"delete"} onClick={deleteHandler}>Delete</Button>
+                    <div className="removeItem__options">
+                        <p>Are you sure you want to delete this item from the menu? <b>Please note that this action cannot be undone.</b></p>
+                        <div className="removeItem__btns">
+                            <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Cancel</Button>
+                            <Button style={"delete"} onClick={deleteHandler}>Delete</Button>
+                        </div>
                     </div>
                 </div>
             }
-        </div>
+        </React.Fragment>
     )
 }
 

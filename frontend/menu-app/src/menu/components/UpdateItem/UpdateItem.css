@@ -1,0 +1,23 @@
+.updateItem__form {
+    width: 50%;
+    margin: auto;
+}
+
+.updateItem__title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.updateItem__container {
+    margin: 150px;
+}
+
+.updateItem__btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.updateItem__btns Button {
+    margin: 0 1rem;
+}

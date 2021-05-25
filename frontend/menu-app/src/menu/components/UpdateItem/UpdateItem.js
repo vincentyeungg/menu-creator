@@ -9,6 +9,8 @@ import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../../shared/context/auth-context";
 
+import "./UpdateItem.css";
+
 function UpdateItem() {
     const auth = useContext(AuthContext);
     const itemId = useParams().itemId;
@@ -77,44 +79,49 @@ function UpdateItem() {
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedItem && 
                 <React.Fragment>
-                    <form onSubmit={onUpdateItem}>
-                        <Input 
-                            id="title"
-                            element="input"
-                            type="text"
-                            label="Item Name"
-                            validator={"REQUIRE_MINMAX"}
-                            errorText="Please enter a valid title for your menu item that is no more than 25 characters."
-                            onInput={inputHandler}
-                            initialValue={loadedItem.title}
-                            initialValid={true}
-                        />
-                        <Input 
-                            id="description"
-                            element="textarea"
-                            label="Item Description"
-                            validator={"REQUIRE"}
-                            errorText="Please enter a valid description for your menu item."
-                            onInput={inputHandler}
-                            initialValue={loadedItem.description}
-                            initialValid={true}
-                        />
-                        <Input 
-                            id="price"
-                            element="text"
-                            type="text"
-                            label="Item Price"
-                            validator={"PRICE"}
-                            errorText="Please enter a valid price for your menu item."
-                            onInput={inputHandler}
-                            initialValue={loadedItem.price}
-                            initialValid={true}
-                        />
-                        <Button type="submit" disabled={!formState.isValid}>
-                            Save Changes
-                        </Button>
-                    </form>
-                    <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Back</Button>
+                    <div className="updateItem__container">
+                        <h2 className="updateItem__title">Update an Item</h2>
+                        <form className="updateItem__form" onSubmit={onUpdateItem}>
+                            <Input 
+                                id="title"
+                                element="input"
+                                type="text"
+                                label="Item Name"
+                                validator={"REQUIRE_MINMAX"}
+                                errorText="Please enter a valid title for your menu item that is no more than 25 characters."
+                                onInput={inputHandler}
+                                initialValue={loadedItem.title}
+                                initialValid={true}
+                            />
+                            <Input 
+                                id="description"
+                                element="textarea"
+                                label="Item Description"
+                                validator={"REQUIRE"}
+                                errorText="Please enter a valid description for your menu item."
+                                onInput={inputHandler}
+                                initialValue={loadedItem.description}
+                                initialValid={true}
+                            />
+                            <Input 
+                                id="price"
+                                element="text"
+                                type="text"
+                                label="Item Price"
+                                validator={"PRICE"}
+                                errorText="Please enter a valid price for your menu item."
+                                onInput={inputHandler}
+                                initialValue={loadedItem.price}
+                                initialValid={true}
+                            />
+                            <div className="updateItem__btns">
+                                <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Back</Button>
+                                <Button type="submit" disabled={!formState.isValid}>
+                                    Save Changes
+                                </Button>
+                            </div>
+                        </form>
+                    </div>
                 </React.Fragment>
             }
         </div>

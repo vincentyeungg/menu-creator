@@ -68,42 +68,49 @@ function CreateItem() {
         <div>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            <form onSubmit={submitFormHandler}>
-                <Input 
-                    element="input"
-                    id="title"
-                    type="text"
-                    label="Item Name"
-                    errorText="Please enter a valid name for the menu item that is no more than 25 characters."
-                    validator={"REQUIRE_MINMAX"}
-                    onInput={inputHandler}
-                />
-                <Input 
-                    element="textarea"
-                    id="description"
-                    label="Item Description"
-                    errorText="Please enter a valid description for the menu item."
-                    validator={"REQUIRE"}
-                    onInput={inputHandler}
-                />
-                <Input 
-                    element="input"
-                    id="price"
-                    type="text"
-                    label="Item Price"
-                    errorText="Please enter a price for the menu item."
-                    validator={"PRICE"}
-                    onInput={inputHandler}
-                />
-                <p>Type: {itemType === "" ? "Please select a type for this item below." : itemType}</p>
-                <div>
-                    <Button type="button" onClick={onOptionClick}>Appetizer</Button>
-                    <Button type="button" onClick={onOptionClick}>Main</Button>
-                    <Button type="button" onClick={onOptionClick}>Dessert</Button>
-                    <Button type="button" onClick={onOptionClick}>Beverage</Button>
+            {!isLoading && 
+                <div className="createItem__container">
+                    <h2 className="createItem__title">Create a new Menu Item</h2>
+                    <form className="createItem__form" onSubmit={submitFormHandler}>
+                        <Input 
+                            element="input"
+                            id="title"
+                            type="text"
+                            label="Item Name"
+                            errorText="Please enter a valid name for the menu item that is no more than 25 characters."
+                            validator={"REQUIRE_MINMAX"}
+                            onInput={inputHandler}
+                        />
+                        <Input 
+                            element="textarea"
+                            id="description"
+                            label="Item Description"
+                            errorText="Please enter a valid description for the menu item."
+                            validator={"REQUIRE"}
+                            onInput={inputHandler}
+                        />
+                        <Input 
+                            element="input"
+                            id="price"
+                            type="text"
+                            label="Item Price"
+                            errorText="Please enter a price for the menu item."
+                            validator={"PRICE"}
+                            onInput={inputHandler}
+                        />
+                        <p>Type: {itemType === "" ? "Please select a type for this item below." : itemType}</p>
+                        <div>
+                            <Button type="button" onClick={onOptionClick}>Appetizer</Button>
+                            <Button type="button" onClick={onOptionClick}>Main</Button>
+                            <Button type="button" onClick={onOptionClick}>Dessert</Button>
+                            <Button type="button" onClick={onOptionClick}>Beverage</Button>
+                        </div>
+                        <div className="createItem__submit">
+                            <Button type="submit" disabled={!formState.isValid || itemType === ""}>Add new item</Button>
+                        </div>
+                    </form>
                 </div>
-                <Button type="submit" disabled={!formState.isValid || itemType === ""}>Add new item</Button>
-            </form>
+            }
         </div>
     )
 }

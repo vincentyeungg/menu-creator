@@ -1,0 +1,17 @@
+.signup__form {
+    width: 50%;
+    margin: auto;
+}
+
+.signup__title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.signup__container {
+    margin: 150px;
+}
+
+.signup__btn {
+    text-align: center;
+}

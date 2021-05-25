@@ -8,6 +8,8 @@ import { AuthContext } from "../../../shared/context/auth-context";
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 
+import "./CreateMenu.css";
+
 function CreateMenu() {
     const auth = useContext(AuthContext);
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -55,27 +57,34 @@ function CreateMenu() {
     return (
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
-            <form onSubmit={submitFormHandler}>
-                {isLoading && <LoadingSpinner asOverlay />}
-                <Input 
-                    element="input"
-                    id="title"
-                    type="text"
-                    label="Menu Name"
-                    errorText="Please enter a name for the menu that is no more than 25 characters."
-                    validator={"REQUIRE_MINMAX"}
-                    onInput={inputHandler}
-                />
-                <Input 
-                    element="textarea"
-                    id="description"
-                    label="Menu Description"
-                    errorText="Please enter a description for the menu."
-                    validator={"REQUIRE"}
-                    onInput={inputHandler}
-                />
-                <Button type="submit" disabled={!formState.isValid}>Create new menu</Button>
-            </form>
+            {isLoading && <LoadingSpinner asOverlay />}
+            {!isLoading && 
+                <div className="createMenu__container">
+                    <h2 className="createMenu__title">Create a new Menu</h2>
+                    <form className="createMenu__form" onSubmit={submitFormHandler}>
+                        <Input 
+                            element="input"
+                            id="title"
+                            type="text"
+                            label="Menu Name"
+                            errorText="Please enter a name for the menu that is no more than 25 characters."
+                            validator={"REQUIRE_MINMAX"}
+                            onInput={inputHandler}
+                        />
+                        <Input 
+                            element="textarea"
+                            id="description"
+                            label="Menu Description"
+                            errorText="Please enter a description for the menu."
+                            validator={"REQUIRE"}
+                            onInput={inputHandler}
+                        />
+                        <div className="createMenu__btn">
+                            <Button type="submit" disabled={!formState.isValid}>Create new menu</Button>
+                        </div>
+                    </form>
+                </div>
+            }
         </React.Fragment>
     )
 }

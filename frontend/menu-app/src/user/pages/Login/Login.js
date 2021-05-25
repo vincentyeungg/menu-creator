@@ -55,30 +55,35 @@ function Login() {
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            <form onSubmit={onLoginHandler} >
-                <Input 
-                    element="input"
-                    id="email"
-                    type="email"
-                    label="Email"
-                    errorText="Please enter your email."
-                    onInput={inputHandler}
-                    validator={"EMAIL"}
-                />
-                <Input 
-                    element="input"
-                    id="password"
-                    type="password"
-                    label="Password"
-                    errorText="Please enter your password."
-                    onInput={inputHandler}
-                    validator={"PASSWORD"}
-                />
-                <Button type="submit" disabled={!formState.isValid}>Login</Button>
-                <p className="login__description">
-                    Don't have an account? Click <Link to="/signup">here</Link> to sign up!
-                </p>
-            </form>
+            <div className="login__container">
+                <h2 className="login__title">LOGIN</h2>
+                <form className="login__form" onSubmit={onLoginHandler} >
+                    <Input 
+                        element="input"
+                        id="email"
+                        type="email"
+                        label="Email"
+                        errorText="Please enter your email."
+                        onInput={inputHandler}
+                        validator={"EMAIL"}
+                    />
+                    <Input 
+                        element="input"
+                        id="password"
+                        type="password"
+                        label="Password"
+                        errorText="Please enter your password."
+                        onInput={inputHandler}
+                        validator={"PASSWORD"}
+                    />
+                    <div className="login__btn">
+                        <Button type="submit" disabled={!formState.isValid}>Login</Button>
+                    </div>
+                    <p className="login__description">
+                        Don't have an account? Click <Link to="/signup">here</Link> to sign up!
+                    </p>
+                </form>
+            </div>
         </React.Fragment>
     )
 }

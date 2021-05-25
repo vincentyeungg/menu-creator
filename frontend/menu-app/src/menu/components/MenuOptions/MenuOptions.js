@@ -33,8 +33,12 @@ function MenuOptions() {
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedMenu && isMenuOwner(loadedMenu, auth.userId) &&
                 <div className="menu__options">
-                    <Button className="btn" style={"delete"} to={`/${auth.userId}/menu/${menuId}/deleteMenu`}>Remove Menu</Button>
-                    <Button className="btn" to={`/${auth.userId}/menu/${menuId}/editMenu`}>Edit Menu</Button>
+                    <div className="btn">
+                        <Button style={"delete"} to={`/${auth.userId}/menu/${menuId}/deleteMenu`}>Remove Menu</Button>
+                    </div>
+                    <div className="btn">
+                        <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Edit Menu</Button>
+                    </div>
                 </div>
             }
         </React.Fragment>

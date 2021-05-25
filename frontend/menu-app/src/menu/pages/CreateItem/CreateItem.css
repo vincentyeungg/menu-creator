@@ -1,0 +1,18 @@
+.createItem__container {
+    margin: 150px;
+}
+
+.createItem__form {
+    width: 50%;
+    margin: auto;
+}
+
+.createItem__title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.createItem__submit {
+    text-align: center;
+    margin: 1rem 0;
+}

@@ -6,5 +6,31 @@
 }
 
 .btn {
-    margin: 1rem 0 0 0;
+    margin: 1rem 1rem 0 0;
+}
+
+.items_list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    margin: 1rem;
+}
+
+.items_list li {
+    padding: 0.3rem 0;
+    margin: 1rem;
+}
+
+.items_container {
+    display: flex;
+    margin: 1rem;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.options__btn {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
 }

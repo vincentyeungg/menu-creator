@@ -5,11 +5,12 @@
 
 .menuItem__description {
     font-size: 1.1rem;
+    text-align: left;
 }
 
 .menuItem__img {
     max-width: 400px;
-    min-width: 300px;
+    min-width: 400px;
 }
 
 .menuItem__item {

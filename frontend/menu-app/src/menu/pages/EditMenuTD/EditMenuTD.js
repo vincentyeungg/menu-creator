@@ -9,6 +9,8 @@ import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpi
 import { AuthContext } from "../../../shared/context/auth-context";
 import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
+import "./EditMenuTD.css";
+
 function EditMenuTD() {
     const auth = useContext(AuthContext);
     const menuId = useParams().menuId;
@@ -71,33 +73,42 @@ function EditMenuTD() {
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedMenu && isMenuOwner(loadedMenu, auth.userId) && 
                 <React.Fragment>
-                    <form onSubmit={onUpdateMenu}>
-                        <Input 
-                            id="title"
-                            element="input"
-                            type="text"
-                            label="Menu Title"
-                            validator={"REQUIRE_MINMAX"}
-                            errorText="Please enter a valid title for your menu that is no more than 25 characters."
-                            onInput={inputHandler}
-                            initialValue={loadedMenu.title}
-                            initialValid={true}
-                        />
-                        <Input 
-                            id="description"
-                            element="textarea"
-                            label="Menu Description"
-                            validator={"REQUIRE"}
-                            errorText="Please enter a valid description for your menu."
-                            onInput={inputHandler}
-                            initialValue={loadedMenu.description}
-                            initialValid={true}
-                        />
-                        <Button type="submit" disabled={!formState.isValid}>
-                            Save Changes
-                        </Button>
-                    </form>
-                    <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Back</Button>
+                    <div className="editMenuTD__container">
+                        <h2 className="editMenuTD__title">Edit Menu</h2>
+                        <form className="editMenuTD__form" onSubmit={onUpdateMenu}>
+                            <Input 
+                                id="title"
+                                element="input"
+                                type="text"
+                                label="Menu Title"
+                                validator={"REQUIRE_MINMAX"}
+                                errorText="Please enter a valid title for your menu that is no more than 25 characters."
+                                onInput={inputHandler}
+                                initialValue={loadedMenu.title}
+                                initialValid={true}
+                            />
+                            <Input 
+                                id="description"
+                                element="textarea"
+                                label="Menu Description"
+                                validator={"REQUIRE"}
+                                errorText="Please enter a valid description for your menu."
+                                onInput={inputHandler}
+                                initialValue={loadedMenu.description}
+                                initialValid={true}
+                            />
+                            <div className="editMenuTD__btns">
+                                <div className="editMenuTD__btn">
+                                    <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Back</Button>
+                                </div>
+                                <div className="editMenuTD__btn">
+                                    <Button type="submit" disabled={!formState.isValid}>
+                                        Save Changes
+                                    </Button>
+                                </div>    
+                            </div>
+                        </form>
+                    </div>
                 </React.Fragment>
             }
         </div>

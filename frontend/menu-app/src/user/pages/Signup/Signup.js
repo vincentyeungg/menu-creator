@@ -68,62 +68,67 @@ function Signup() {
         <React.Fragment>
             <ErrorModal error={error} onClear={clearError} />
             {isLoading && <LoadingSpinner asOverlay />}
-            <form onSubmit={onSignupHandler}>
-                <Input 
-                    element="input"
-                    id="firstname"
-                    type="text"
-                    label="First Name"
-                    errorText="Please enter your first name."
-                    onInput={inputHandler}
-                    validator="REQUIRE"
-                />
-                <Input 
-                    element="input"
-                    id="lastname"
-                    type="text"
-                    label="Last Name"
-                    errorText="Please enter your last name."
-                    onInput={inputHandler}
-                    validator="REQUIRE"
-                />
-                <Input 
-                    element="input"
-                    id="email"
-                    type="email"
-                    label="Email"
-                    errorText="Please enter your email address."
-                    onInput={inputHandler}
-                    validator="EMAIL"
-                />
-                <Input 
-                    element="input"
-                    id="password"
-                    type="password"
-                    label="Password"
-                    errorText="Please enter a password of at least 6 characters."
-                    onInput={inputHandler}
-                    validator="PASSWORD"
-                />
-                <Input 
-                    element="input"
-                    id="confirmPassword"
-                    type="password"
-                    label="Confirm Password"
-                    errorText="Passwords do not match. Please re-enter your password."
-                    onInput={inputHandler}
-                    validator="PASSWORD"
-                />
-                <Button 
-                    type="submit" 
-                    disabled={!formState.isValid || !(formState.inputs.password.value === formState.inputs.confirmPassword.value)}
-                >
-                    Sign Up
-                </Button>
-                <p className="signup__description">
-                    Already have an account? Click <Link to="/login">here</Link> to login!
-                </p>
-            </form>
+            <div className="signup__container">
+                <h2 className="signup__title">SIGN UP</h2>
+                <form className="signup__form" onSubmit={onSignupHandler}>
+                    <Input 
+                        element="input"
+                        id="firstname"
+                        type="text"
+                        label="First Name"
+                        errorText="Please enter your first name."
+                        onInput={inputHandler}
+                        validator="REQUIRE"
+                    />
+                    <Input 
+                        element="input"
+                        id="lastname"
+                        type="text"
+                        label="Last Name"
+                        errorText="Please enter your last name."
+                        onInput={inputHandler}
+                        validator="REQUIRE"
+                    />
+                    <Input 
+                        element="input"
+                        id="email"
+                        type="email"
+                        label="Email"
+                        errorText="Please enter your email address."
+                        onInput={inputHandler}
+                        validator="EMAIL"
+                    />
+                    <Input 
+                        element="input"
+                        id="password"
+                        type="password"
+                        label="Password"
+                        errorText="Please enter a password of at least 6 characters."
+                        onInput={inputHandler}
+                        validator="PASSWORD"
+                    />
+                    <Input 
+                        element="input"
+                        id="confirmPassword"
+                        type="password"
+                        label="Confirm Password"
+                        errorText="Passwords do not match. Please re-enter your password."
+                        onInput={inputHandler}
+                        validator="PASSWORD"
+                    />
+                    <div className="signup__btn">
+                        <Button 
+                            type="submit" 
+                            disabled={!formState.isValid || !(formState.inputs.password.value === formState.inputs.confirmPassword.value)}
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
+                    <p className="signup__description">
+                        Already have an account? Click <Link to="/login">here</Link> to login!
+                    </p>
+                </form>
+            </div>
         </React.Fragment>
     )
 }

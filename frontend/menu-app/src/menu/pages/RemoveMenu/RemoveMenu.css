@@ -1,26 +1,30 @@
-.removeMenu__menuItem {
+.removeMenu__menu {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 1rem;
+    margin: 100px;
 }
 
-.menuItem__description {
-    text-align: center;
-    margin: 1rem;
+.removeMenu__title {
+    font-weight: 300;
+    font-size: 3rem;
 }
 
-h1 {
-    font-weight: 400;
-}
-
-.menuItem__options {
+.menu__options {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.menuItem__delete {
+.menu__delete {
+    margin: 1rem;
+}
+
+.menu__description p {
+    font-size: 1.5rem;
+}
+
+.removeMenu__btn {
     margin: 1rem;
 }

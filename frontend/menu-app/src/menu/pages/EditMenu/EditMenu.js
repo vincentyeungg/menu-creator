@@ -50,31 +50,39 @@ function EditMenu() {
                         <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}/createItem`}>here</Button> to create a new item.</p>
                         <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}/editMenu/edit`}>here</Button> to edit the menu title and description.</p>
                     </div>
-                    <ul>
-                        {loadedMenuItems.map(item => (
-                            <li key={item._id}>
-                                <MenuItem 
-                                    id={item._id}
-                                    title={item.title}
-                                    description={item.description}
-                                    price={item.price}
-                                    image={item.image}
-                                    menu={item.menu}            
-                                />
-                                <Button 
-                                    to={`/${auth.userId}/${menuId}/editMenu/editItem/${item._id}`}
-                                >
-                                    Edit Item
-                                </Button>
-                                <Button 
-                                    to={`/${auth.userId}/${menuId}/editMenu/removeItem/${item._id}`}
-                                    style="delete"
-                                >
-                                    Delete Item
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="items_container">
+                        <ul className="items_list">
+                            {loadedMenuItems.map(item => (
+                                <li key={item._id}>
+                                    <MenuItem 
+                                        id={item._id}
+                                        title={item.title}
+                                        description={item.description}
+                                        price={item.price}
+                                        image={item.image}
+                                        menu={item.menu}            
+                                    />
+                                    <div className="options__btn">
+                                        <div className="btn">
+                                            <Button 
+                                                to={`/${auth.userId}/${menuId}/editMenu/editItem/${item._id}`}
+                                            >
+                                                Edit Item
+                                            </Button>
+                                        </div>
+                                        <div className="btn">
+                                            <Button 
+                                                to={`/${auth.userId}/${menuId}/editMenu/removeItem/${item._id}`}
+                                                style="delete"
+                                            >
+                                                Delete Item
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </React.Fragment>
             }
         </div>

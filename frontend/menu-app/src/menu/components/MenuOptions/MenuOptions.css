@@ -1,3 +1,5 @@
-.btn {
-    padding-left: 1rem;
+.menu__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

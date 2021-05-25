@@ -1,0 +1,23 @@
+.editMenuTD__form {
+    width: 50%;
+    margin: auto;
+}
+
+.editMenuTD__title {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.editMenuTD__container {
+    margin: 150px;
+}
+
+.editMenuTD__btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editMenuTD__btn {
+    margin: 0 1rem;
+}
