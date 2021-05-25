@@ -83,8 +83,8 @@ function UpdateItem() {
                             element="input"
                             type="text"
                             label="Item Name"
-                            validator={"REQUIRE"}
-                            errorText="Please enter a valid title for your menu item."
+                            validator={"REQUIRE_MINMAX"}
+                            errorText="Please enter a valid title for your menu item that is no more than 25 characters."
                             onInput={inputHandler}
                             initialValue={loadedItem.title}
                             initialValid={true}

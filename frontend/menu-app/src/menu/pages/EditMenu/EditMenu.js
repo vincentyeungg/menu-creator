@@ -8,6 +8,8 @@ import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpi
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
+import "./EditMenu.css";
+
 function EditMenu() {
 
     const auth = useContext(AuthContext);
@@ -44,8 +46,10 @@ function EditMenu() {
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedMenu && loadedMenuItems && isMenuOwner(loadedMenu, auth.userId) && 
                 <React.Fragment>
-                    <p>Click <Button to={`/${auth.userId}/menu/${menuId}/createItem`}>here</Button> to create a new item.</p>
-                    <p>Click <Button to={`/${auth.userId}/menu/${menuId}/editMenu/edit`}>here</Button> to edit the menu title and description.</p>
+                    <div className="editMenu__options">
+                        <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}/createItem`}>here</Button> to create a new item.</p>
+                        <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}/editMenu/edit`}>here</Button> to edit the menu title and description.</p>
+                    </div>
                     <ul>
                         {loadedMenuItems.map(item => (
                             <li key={item._id}>

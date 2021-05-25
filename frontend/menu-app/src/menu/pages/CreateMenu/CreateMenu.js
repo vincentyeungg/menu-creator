@@ -62,8 +62,8 @@ function CreateMenu() {
                     id="title"
                     type="text"
                     label="Menu Name"
-                    errorText="Please enter a name for the menu."
-                    validator={"REQUIRE"}
+                    errorText="Please enter a name for the menu that is no more than 25 characters."
+                    validator={"REQUIRE_MINMAX"}
                     onInput={inputHandler}
                 />
                 <Input 

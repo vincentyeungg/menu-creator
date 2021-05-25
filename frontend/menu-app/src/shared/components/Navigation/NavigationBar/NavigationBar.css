@@ -4,11 +4,9 @@
     align-items: center;
     background-color: rgb(253, 245, 235);
     padding: 0.5rem 1rem;
-    /* position: fixed;
     top: 0;
-    right: 0;
-    left: 0; */
-    top: 0;
+    height: 100px;
+    min-height: 100px;
 }
 
 .navigationBar__header {

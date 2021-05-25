@@ -74,15 +74,15 @@ function CreateItem() {
                     id="title"
                     type="text"
                     label="Item Name"
-                    errorText="Please enter a name for the menu item."
-                    validator={"REQUIRE"}
+                    errorText="Please enter a valid name for the menu item that is no more than 25 characters."
+                    validator={"REQUIRE_MINMAX"}
                     onInput={inputHandler}
                 />
                 <Input 
                     element="textarea"
                     id="description"
                     label="Item Description"
-                    errorText="Please enter a description for the menu item."
+                    errorText="Please enter a valid description for the menu item."
                     validator={"REQUIRE"}
                     onInput={inputHandler}
                 />

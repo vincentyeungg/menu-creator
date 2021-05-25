@@ -1,10 +1,8 @@
 .menuList__list {
+    list-style: none;
     display: flex;
-    list-style-type: none;
     flex-wrap: wrap;
-    align-items: center;
-    padding: 0;
-    justify-content: center;
+    justify-content: start;
 }
 
 .menuList__listItem {
@@ -38,4 +36,17 @@
 .menuList__delete {
     margin-left: 1rem;
     margin-top: 1rem;
+}
+
+.noItems_msge {
+    margin: 1rem;
+    text-align: center;
+    font-weight: 300;
+}
+
+.menuList__container {
+    display: flex;
+    margin: 2rem;
+    align-items: center;
+    justify-content: flex-start;
 }

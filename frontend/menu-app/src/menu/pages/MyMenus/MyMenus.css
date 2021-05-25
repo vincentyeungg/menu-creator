@@ -1,15 +1,19 @@
 .menus__container {
     display: flex;
     margin: 2rem;
-    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .container__menu {
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
 }
 
 .container__menu li{
-    padding: 0.3rem 0;
+    margin: 1rem;
 }
 
 .menus__createMenu {
@@ -22,5 +26,14 @@
 
 h2 {
     font-weight: lighter;
-    margin: 1rem;
+    margin: 1rem 0;
+}
+
+.menus__title {
+    margin-top: 2rem;
+}
+
+.menus__title > h1{
+    text-align: center;
+    font-weight: 400;
 }

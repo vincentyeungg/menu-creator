@@ -7,6 +7,8 @@ import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
+import "./MenuOptions.css";
+
 function MenuOptions() {
     const auth = useContext(AuthContext);
     const menuId = useParams().menuId;
@@ -31,8 +33,8 @@ function MenuOptions() {
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedMenu && isMenuOwner(loadedMenu, auth.userId) &&
                 <div className="menu__options">
-                    <Button style={"delete"} to={`/${auth.userId}/menu/${menuId}/deleteMenu`}>Remove Menu</Button>
-                    <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Edit Menu</Button>
+                    <Button className="btn" style={"delete"} to={`/${auth.userId}/menu/${menuId}/deleteMenu`}>Remove Menu</Button>
+                    <Button className="btn" to={`/${auth.userId}/menu/${menuId}/editMenu`}>Edit Menu</Button>
                 </div>
             }
         </React.Fragment>

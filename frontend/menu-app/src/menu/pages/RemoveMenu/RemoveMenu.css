@@ -1,0 +1,26 @@
+.removeMenu__menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.menuItem__description {
+    text-align: center;
+    margin: 1rem;
+}
+
+h1 {
+    font-weight: 400;
+}
+
+.menuItem__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menuItem__delete {
+    margin: 1rem;
+}

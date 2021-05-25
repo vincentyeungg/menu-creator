@@ -1,5 +1,6 @@
 .contentCard__main {
-    margin: 1rem 0;
+    width: 300px;
+    padding-bottom: 1rem;
 }
 
 .contentCard__title {
@@ -12,5 +13,6 @@
 }
 
 .contentCard__creator {
+    font-weight: 600;
     color: rgb(51, 51, 51);
 }

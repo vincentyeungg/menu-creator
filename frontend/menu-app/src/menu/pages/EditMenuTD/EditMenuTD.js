@@ -77,8 +77,8 @@ function EditMenuTD() {
                             element="input"
                             type="text"
                             label="Menu Title"
-                            validator={"REQUIRE"}
-                            errorText="Please enter a valid title for your menu."
+                            validator={"REQUIRE_MINMAX"}
+                            errorText="Please enter a valid title for your menu that is no more than 25 characters."
                             onInput={inputHandler}
                             initialValue={loadedMenu.title}
                             initialValid={true}

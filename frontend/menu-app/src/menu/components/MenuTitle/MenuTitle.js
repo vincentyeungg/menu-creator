@@ -4,7 +4,7 @@ import './MenuTitle.css';
 function MenuTitle(props) {
     return (
         <React.Fragment>
-            <h1 className="menuTitle">{props.title}</h1>
+            <h2 className="menuTitle">{props.title}</h2>
         </React.Fragment>
     )
 }

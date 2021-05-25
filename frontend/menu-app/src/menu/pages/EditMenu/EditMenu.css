@@ -1,0 +1,10 @@
+.editMenu__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.btn {
+    margin: 1rem 0 0 0;
+}

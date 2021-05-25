@@ -36,8 +36,10 @@ function MyMenus() {
                             <h2>Have other ideas for another menu?</h2>
                             <p>Click <Button to={`/${auth.userId}/createMenu`}>here</Button> to create a new menu.</p>
                         </div>
-                        <div className="menus__container">
+                        <div className="menus__title">
                             <h1>Your Menus</h1>
+                        </div>
+                        <div className="menus__container">
                             <ul className="container__menu">
                                 {loadedMenus.map(menu => (
                                     <li>
@@ -61,7 +63,7 @@ function MyMenus() {
             <React.Fragment>
                 <ErrorModal error={error} onClear={clearError} />
                 {isLoading && <LoadingSpinner asOverlay />}
-                <div>
+                <div className="menus__createMenu">
                     <h2>You currently don't have any menus.</h2>
                     <p>Click <Button to={`/${auth.userId}/createMenu`}>here</Button> to create a new menu.</p>
                 </div>

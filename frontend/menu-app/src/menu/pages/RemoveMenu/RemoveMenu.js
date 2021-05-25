@@ -7,6 +7,8 @@ import { AuthContext } from "../../../shared/context/auth-context";
 import Button from '../../../shared/components/Button/Button';
 import { isMenuOwner } from "../../../shared/utils/permissionsValidation";
 
+import "./RemoveMenu.css";
+
 function RemoveMenu() {
     const auth = useContext(AuthContext);
     const menuId = useParams().menuId;
@@ -45,15 +47,17 @@ function RemoveMenu() {
             {isLoading && <LoadingSpinner asOverlay />}
             {!isLoading && loadedMenu && isMenuOwner(loadedMenu, auth.userId) && 
                 <div className="removeMenu__menuItem">
+                    <h1>{loadedMenu.title}</h1>
                     <div className="menuItem__description">
-                        <h1>{loadedMenu.title}</h1>
                         <p>{loadedMenu.description}</p>
                     </div>
                     <div className="menuItem__delete">
                         <p>Are you sure you want to delete this menu? Please note that this action cannot be undone.</p>
                     </div>
-                    <Button to={`/${auth.userId}/menu/${menuId}`}>Cancel</Button>
-                    <Button style="delete" onClick={deleteHandler}>Delete</Button>
+                    <div className="menuItem__options">
+                        <Button to={`/${auth.userId}/menu/${menuId}`}>Cancel</Button>
+                        <Button style="delete" onClick={deleteHandler}>Delete</Button>
+                    </div>
                 </div>
             }
         </div>
