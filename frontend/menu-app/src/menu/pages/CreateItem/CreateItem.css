@@ -1,5 +1,5 @@
 .createItem__container {
-    margin: 150px;
+    margin: 50px;
 }
 
 .createItem__form {
@@ -15,4 +15,11 @@
 .createItem__submit {
     text-align: center;
     margin: 1rem 0;
+}
+
+.createItem__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

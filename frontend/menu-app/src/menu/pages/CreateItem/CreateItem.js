@@ -7,6 +7,7 @@ import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import useHttpClient from '../../../shared/hooks/http-hook';
 import { AuthContext } from "../../../shared/context/auth-context";
+import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
 
 import "./CreateItem.css";
 
@@ -32,6 +33,10 @@ function CreateItem() {
                 value: '',
                 isValid: false
             },
+            image: {
+                value: null,
+                isValud: false
+            }
         },
         // initial form validity
         false
@@ -39,6 +44,9 @@ function CreateItem() {
 
     const submitFormHandler = async (event) => {
         event.preventDefault();
+
+        console.log(formState.inputs)
+
         try {
             const responseData = await sendRequest(
                 `http://localhost:5000/api/menuItems/${menuId}`,
@@ -98,6 +106,10 @@ function CreateItem() {
                             validator={"PRICE"}
                             onInput={inputHandler}
                         />
+                        <div className="createItem__image">
+                            <p>Select an image:</p>
+                            <ImageUpload id="image" onInput={inputHandler} />
+                        </div>
                         <p>Type: {itemType === "" ? "Please select a type for this item below." : itemType}</p>
                         <div>
                             <Button type="button" onClick={onOptionClick}>Appetizer</Button>
