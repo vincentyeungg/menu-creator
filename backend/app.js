@@ -7,6 +7,8 @@ const port = 5000;
 const dbName = 'MERN-menuDB';
 const url = 'mongodb+srv://admin:M826579g@projects.wjxbx.mongodb.net/' + dbName;
 const HttpError = require('./models/http-error');
+const fs = require("fs");
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,6 +24,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
     next();
 });
+
+// allow frontend to obtain images with correct path
+app.use('/uploads/images', express.static(path.join('uploads','images')));
 
 // routes middleware
 const menusRoutes = require('./routes/menu-routes');
@@ -43,6 +48,12 @@ app.use((error, req, res, next) => {
     // check if a response has been sent already
     if (res.headerSent) {
         return next(error);
+    }
+    // if there was an error, check if there was a file added, and then remove it from the system
+    if (req.file) {
+        fs.unlink(req.file.path, (err) => {
+            console.log(err);
+        });
     }
     // if no responses have been sent
     res.status(error.code || 500).json({

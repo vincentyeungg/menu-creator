@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const mongooseUniqueValidator = require('mongoose-unique-validator');
+const fs = require('fs');
 
 // models
 const Menu = require('../models/menu-model');
@@ -173,6 +174,19 @@ const deleteMenu = async(req, res, next) => {
         return next(error);
     }
 
+    let toDeleteMenu;
+    try {
+        toDeleteMenu = await Menu.findById(menuId).populate('menuItem');
+    } catch (error) {
+        const err = new HttpError('Something went wrong, could not delete menu.', 500);
+        return next(err);
+    }
+
+    let deleteImgPathArray = [];
+    toDeleteMenu.menuItem.forEach(item => {
+        deleteImgPathArray.push(item.image);
+    });
+
     // delete the menu that was found with the menuId, as well as clear up the User's menus
     // clear up any menuItems that belong to the menu Id
     try {
@@ -187,6 +201,12 @@ const deleteMenu = async(req, res, next) => {
         const err = new HttpError('Something went wrong, could not delete menu.', 500);
         return next(err);
     }
+
+    deleteImgPathArray.forEach(imagePath => {
+        fs.unlink(imagePath, err => {
+            console.log(err);
+        })
+    });
 
     res.status(200).json(
         {message: "Deleted menu."}

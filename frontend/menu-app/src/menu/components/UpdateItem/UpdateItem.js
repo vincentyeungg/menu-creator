@@ -8,6 +8,7 @@ import useHttpClient from '../../../shared/hooks/http-hook';
 import ErrorModal from "../../../shared/components/ErrorModal/ErrorModal";
 import LoadingSpinner from "../../../shared/components/LoadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../../shared/context/auth-context";
+import ImageUpload from "../../../shared/components/ImageUpload/ImageUpload";
 
 import "./UpdateItem.css";
 
@@ -33,6 +34,10 @@ function UpdateItem() {
             price: {
                 value: "",
                 isValid: true
+            },
+            image: {
+                value: null,
+                isValid: true
             }
         },
         // initial form validity
@@ -53,18 +58,17 @@ function UpdateItem() {
 
     const onUpdateItem = async (event) => {
         event.preventDefault();
+        
         try {
+            const formData = new FormData();
+            formData.append('title', formState.inputs.title.value);
+            formData.append('description', formState.inputs.description.value);
+            formData.append('price', formState.inputs.price.value);
+            formData.append('image', formState.inputs.image.value);
             const responseData = await sendRequest(
                 `http://localhost:5000/api/menuItems/${itemId}`,
                 'PATCH',
-                JSON.stringify({
-                    title: formState.inputs.title.value,
-                    description: formState.inputs.description.value,
-                    price: formState.inputs.price.value
-                }),
-                {
-                    'Content-Type': 'application/json'
-                }
+                formData
             );
             // maybe show a saved indicator
             history.push(`/${auth.userId}/menu/${menuId}/editMenu`);
@@ -114,6 +118,10 @@ function UpdateItem() {
                                 initialValue={loadedItem.price}
                                 initialValid={true}
                             />
+                            <div className="createItem__image">
+                                <p>Select a new image:</p>
+                                <ImageUpload id="image" onInput={inputHandler} initialImage={loadedItem.image} />
+                            </div>
                             <div className="updateItem__btns">
                                 <Button to={`/${auth.userId}/menu/${menuId}/editMenu`}>Back</Button>
                                 <Button type="submit" disabled={!formState.isValid}>

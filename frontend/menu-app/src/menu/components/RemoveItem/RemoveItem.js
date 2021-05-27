@@ -49,14 +49,16 @@ function RemoveItem() {
             {!isLoading && loadedItem && 
                 <div className="removeItem__container">
                     <h2 className="removeItem__title">Remove Item</h2>
-                    <MenuItem 
-                        id={loadedItem._id}
-                        title={loadedItem.title}
-                        description={loadedItem.description}
-                        price={loadedItem.price}
-                        image={loadedItem.image}
-                        menu={loadedItem.menu}
-                    />
+                    <div className="removeItem__item">
+                        <MenuItem 
+                            id={loadedItem._id}
+                            title={loadedItem.title}
+                            description={loadedItem.description}
+                            price={loadedItem.price}
+                            image={loadedItem.image}
+                            menu={loadedItem.menu}
+                        />
+                    </div>
                     <div className="removeItem__options">
                         <p>Are you sure you want to delete this item from the menu? <b>Please note that this action cannot be undone.</b></p>
                         <div className="removeItem__btns">

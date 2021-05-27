@@ -45,21 +45,17 @@ function CreateItem() {
     const submitFormHandler = async (event) => {
         event.preventDefault();
 
-        console.log(formState.inputs)
-
         try {
+            const formData = new FormData();
+            formData.append('title', formState.inputs.title.value);
+            formData.append('description', formState.inputs.description.value);
+            formData.append('price', formState.inputs.price.value);
+            formData.append('type', itemType);
+            formData.append('image', formState.inputs.image.value);
             const responseData = await sendRequest(
                 `http://localhost:5000/api/menuItems/${menuId}`,
                 'POST',
-                JSON.stringify({
-                    title: formState.inputs.title.value,
-                    description: formState.inputs.description.value,
-                    price: formState.inputs.price.value,
-                    type: itemType
-                }),
-                {
-                    'Content-Type': 'application/json'
-                }
+                formData,
             );
             history.push(`/${auth.userId}/menu/${menuId}/editMenu`);
         } catch (error) {

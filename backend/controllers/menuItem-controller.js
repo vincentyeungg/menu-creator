@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const mongooseUniqueValidator = require('mongoose-unique-validator');
+const fs = require("fs");
 
 // models
 const Menu = require('../models/menu-model');
@@ -81,7 +82,7 @@ const createMenuItem = async(req, res, next) => {
         description: description,
         price: price,
         type: type,
-        image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+        image: req.file.path,
         menu: menuId
     });
 
@@ -139,10 +140,14 @@ const updateMenuItem = async(req, res, next) => {
         return next(err);
     }
 
+    // get the old image and remove it
+    const oldImagePath = menuItem.image;
+
     // update parameters
     menuItem.title = title;
     menuItem.description = description;
     menuItem.price = price;
+    menuItem.image = req.file.path;
 
     try {
         await menuItem.save();
@@ -150,6 +155,10 @@ const updateMenuItem = async(req, res, next) => {
         const err = new HttpError('Something went wrong, could not update menu item.', 500);
         return next(err);
     }
+
+    fs.unlink(oldImagePath, err => {
+        console.log(err);
+    });
 
     res.status(200).json(
         {
@@ -175,6 +184,8 @@ const deleteMenuItem = async(req, res, next) => {
         return next(error);
     }
 
+    const imagePath = menuItem.image;
+
     // delete the menuItem and reference from the menu
     try {
         const session = await mongoose.startSession();
@@ -187,6 +198,10 @@ const deleteMenuItem = async(req, res, next) => {
         const err = new HttpError('Something went wrong, could not delete item.', 500);
         return next(err);
     }
+
+    fs.unlink(imagePath, err => {
+        console.log(err);
+    })
 
     res.status(200).json(
         {message: "Deleted menu item."}

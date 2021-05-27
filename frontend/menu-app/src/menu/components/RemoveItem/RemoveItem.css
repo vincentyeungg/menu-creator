@@ -3,7 +3,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 100px;
+    margin: 50px;
+}
+
+.removeItem__item {
+    margin: 1rem;
 }
 
 .removeItem__title {
