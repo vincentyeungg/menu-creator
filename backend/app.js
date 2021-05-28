@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const ADMIN_DATA = require('./admin_data');
 // port number to host backend
 const port = 5000;
 // db name
 const dbName = 'MERN-menuDB';
-const url = 'mongodb+srv://admin:M826579g@projects.wjxbx.mongodb.net/' + dbName;
+const url = `mongodb+srv://admin:${ADMIN_DATA.DB_PASSWORD}@projects.wjxbx.mongodb.net/${dbName}`;
 const HttpError = require('./models/http-error');
 const fs = require("fs");
 const path = require('path');

@@ -44,7 +44,7 @@ function Login() {
                     'Content-Type': 'application/json'
                 },
             );
-            auth.login(responseData.user.id);
+            auth.login(responseData.user.userId, responseData.user.token);
         } catch (error) {
             // error is handled in custom hook, however it will throw error thus use try-catch here
         }

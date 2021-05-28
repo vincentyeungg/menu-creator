@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 const HttpError = require('../models/http-error');
+const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+const ADMIN_DATA = require('../admin_data');
 
 // models
 const User = require('../models/user-model');
@@ -38,17 +41,49 @@ const login = async(req, res, next) => {
         return next(err);
     }
 
-    // if no existing users or password is incorrect
-    if (!existingUser || existingUser.password !== password) {
+    // if no existing
+    if (!existingUser) {
         // 401 unauthorized
         const error = new HttpError('Invalid credentials, could not log you in.', 401);
         return next(error);
     }
 
+    let isValidPassword = false;
+    // compare the incoming plaintext password with the hashed password
+    try {
+        isValidPassword = await bcrypt.compare(password, existingUser.password);
+    } catch (error) {
+        const err = new HttpError('Could not log you in, please check your credentials and try again.', 500);
+        return next(err);
+    }
+
+    if (!isValidPassword) {
+        // 401 unauthorized
+        const error = new HttpError('Invalid credentials, could not log you in.', 401);
+        return next(error);
+    }
+
+    // user exists, password and hashed password are valid
+    // can generate JWT token
+    let token;
+    try {
+        token = jwt.sign(
+            {userId: existingUser.id, email: existingUser.email},
+            ADMIN_DATA.SECRET_KEY,
+            {expiresIn: '1h'}
+        );   
+    } catch (error) {
+        const err = new HttpError('Logging in failed, please try again.', 500);
+        return next(err);
+    }
+
     res.status(200).json(
         {
-            message: "Logged in.",
-            user: existingUser.toObject({ getters: true })
+            user: {
+                userId: existingUser.id,
+                email: existingUser.email,
+                token: token
+            }
         }
     );
 };
@@ -83,12 +118,22 @@ const signup = async(req, res, next) => {
         return next(err);
     }
 
+    // generate hashed password
+    let hashedPassword;
+    let SALT_ROUNDS = 12;
+    try {
+        hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    } catch (error) {
+        const err = new HttpError('Could not create a new user, please try again.', 500);
+        return next(err);
+    }
+
     // if user didn't exist, then add them to the database
     const createdUser = new User({
         firstname: firstname,
         lastname: lastname,
         email: email,
-        password: password,
+        password: hashedPassword,
         menus: []
     });
 
@@ -100,10 +145,26 @@ const signup = async(req, res, next) => {
         return next(err);
     }
 
+    // can generate JWT token
+    let token;
+    try {
+        token = jwt.sign(
+            {userId: createdUser.id, email: createdUser.email},
+            ADMIN_DATA.SECRET_KEY,
+            {expiresIn: '1h'}
+        );   
+    } catch (error) {
+        const err = new HttpError('Signup failed, please try again.', 500);
+        return next(err);
+    }
+
     res.status(200).json(
         {
-            message: "Signed up.",
-            user: createdUser.toObject({ getters: true })
+            user: {
+                userId: createdUser.id,
+                email: createdUser.email,
+                token: token
+            }
         }
     );
 };

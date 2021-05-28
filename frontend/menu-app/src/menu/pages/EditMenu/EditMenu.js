@@ -48,6 +48,7 @@ function EditMenu() {
                 <React.Fragment>
                     <div className="editMenu__options">
                         <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}/createItem`}>here</Button> to create a new item.</p>
+                        <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}`}>here</Button> to view the entire menu.</p>
                         <p className="btn">Click <Button to={`/${auth.userId}/menu/${menuId}/editMenu/edit`}>here</Button> to edit the menu title and description.</p>
                     </div>
                     <div className="items_container">

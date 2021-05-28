@@ -33,7 +33,11 @@ function RemoveMenu() {
         try {
             const responseData = await sendRequest(
                 `http://localhost:5000/api/menus/${menuId}`,
-                'DELETE'
+                'DELETE',
+                null,
+                {
+                    Authorization: 'Bearer ' + auth.token
+                }
             );
             history.push(`/${auth.userId}/viewMenus`);
         } catch (error) {

@@ -1,6 +1,7 @@
 const express = require("express");
 const { check } = require('express-validator');
 const router = express.Router();
+const checkAuth = require('../middleware/check-auth');
 
 const menuItemsController = require('../controllers/menuItem-controller');
 const fileUpload = require("../middleware/file-upload");
@@ -15,6 +16,9 @@ router.get('/menu/:menuId', menuItemsController.getMenuItemsByMenuId);
 
 // get request to retrieve specific item given id
 router.get('/:itemId', menuItemsController.getMenuItemByItemId);
+
+// need a middleware here to limit the access of certain api calls i.e., post, patch, delete requests
+router.use(checkAuth);
 
 // post request for creating a menu item
 router.post('/:menuId', 

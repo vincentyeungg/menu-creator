@@ -56,6 +56,9 @@ function CreateItem() {
                 `http://localhost:5000/api/menuItems/${menuId}`,
                 'POST',
                 formData,
+                {
+                    Authorization: 'Bearer ' + auth.token
+                }
             );
             history.push(`/${auth.userId}/menu/${menuId}/editMenu`);
         } catch (error) {

@@ -44,7 +44,8 @@ function CreateMenu() {
                     creator: auth.userId
                 }),
                 {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + auth.token
                 }
             );
             // direct user back to the menus page

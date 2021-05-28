@@ -68,7 +68,10 @@ function UpdateItem() {
             const responseData = await sendRequest(
                 `http://localhost:5000/api/menuItems/${itemId}`,
                 'PATCH',
-                formData
+                formData,
+                {
+                    Authorization: 'Bearer ' + auth.token
+                }
             );
             // maybe show a saved indicator
             history.push(`/${auth.userId}/menu/${menuId}/editMenu`);

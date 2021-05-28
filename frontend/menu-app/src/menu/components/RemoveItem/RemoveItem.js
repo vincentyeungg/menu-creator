@@ -34,7 +34,11 @@ function RemoveItem() {
         try {
             const responseData = await sendRequest(
                 `http://localhost:5000/api/menuItems/${itemId}`,
-                'DELETE'
+                'DELETE',
+                null,
+                {
+                    Authorization: 'Bearer ' + auth.token
+                }
             );
             history.push(`/${auth.userId}/menu/${menuId}/editMenu`);
         } catch (error) {
