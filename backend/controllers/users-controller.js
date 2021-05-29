@@ -58,8 +58,8 @@ const login = async(req, res, next) => {
     }
 
     if (!isValidPassword) {
-        // 401 unauthorized
-        const error = new HttpError('Invalid credentials, could not log you in.', 401);
+        // 403 forbidden
+        const error = new HttpError('Invalid credentials, could not log you in.', 403);
         return next(error);
     }
 

@@ -98,6 +98,13 @@ const createMenu = async(req, res, next) => {
         return next(error);
     }
 
+    // need to check if the creator id matches with the id in the token of the current user
+    // to prevent other users creating menus for different users
+    if (creator !== req.userData.userId) {
+        const error = new HttpError("You are not allowed to create a menu for a different user.", 401);
+        return next(error);
+    }
+
     // creating a menu is a multistep operation since user and menu collections need updating
     // if any action fails, need to revert all actions
     try {
@@ -139,13 +146,26 @@ const updateMenu = async(req, res, next) => {
         return next(err);
     }
 
+    if (menu === null || undefined) {
+        const error = new HttpError('Could not find menu with that menu id.', 500);
+        return next(error);
+    } 
+
+    // restrictions on who can edit a menu
+    // only the creator can edit the menu
+    // need to check token of current user against creator of menu
+    if (menu.creator.toString() !== req.userData.userId) {
+        const error = new HttpError("You are not allowed to edit a menu for a different user.", 401);
+        return next(error);
+    };
+
     menu.title = title;
     menu.description = description;
 
     try {
         await menu.save();
     } catch (error) {
-        const err = new HttpError('Something went wrong, could not update place.', 500);
+        const err = new HttpError('Something went wrong, could not update menu.', 500);
         return next(err);
     }
 
@@ -173,6 +193,14 @@ const deleteMenu = async(req, res, next) => {
         const error = new HttpError('Could not find a menu for this id.', 404);
         return next(error);
     }
+
+    // restrictions on who can delete a menu
+    // only the creator can delete the menu
+    // need to check token of current user against creator of menu
+    if (menu.creator.toString() !== req.userData.userId) {
+        const error = new HttpError("You are not allowed to delete a menu for a different user.", 401);
+        return next(error);
+    };
 
     let toDeleteMenu;
     try {

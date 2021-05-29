@@ -100,6 +100,14 @@ const createMenuItem = async(req, res, next) => {
         return next(error);
     }
 
+    // restrictions on who can edit a menu
+    // only the creator can edit the menu
+    // need to check token of current user against creator of menu
+    if (menu.creator.toString() !== req.userData.userId) {
+        const error = new HttpError("You are not allowed to create a menu item for a menu that does not belong to you.", 401);
+        return next(error);
+    };
+
     // creating item is multistep operation, need to update menuItem and menu document
     // revert all changes if any step has issues
     try {
@@ -134,11 +142,19 @@ const updateMenuItem = async(req, res, next) => {
 
     let menuItem;
     try {
-        menuItem = await MenuItem.findById(menuItemId);
+        menuItem = await MenuItem.findById(menuItemId).populate('menu');
     } catch (error) {
         const err = new HttpError('Something went wrong, could not update menu item.', 500);
         return next(err);
     }
+
+    // restrictions on who can edit a menu
+    // only the creator can edit the menu
+    // need to check token of current user against creator of menu
+    if (menuItem.menu.creator.toString() !== req.userData.userId) {
+        const error = new HttpError("You are not allowed to update a menu item for a different user.", 401);
+        return next(error);
+    };
 
     // get the old image and remove it
     const oldImagePath = menuItem.image;
@@ -147,7 +163,13 @@ const updateMenuItem = async(req, res, next) => {
     menuItem.title = title;
     menuItem.description = description;
     menuItem.price = price;
-    menuItem.image = req.file.path;
+    
+    if (!!req.file) {
+        menuItem.image = req.file.path;
+        fs.unlink(oldImagePath, err => {
+            console.log(err);
+        });
+    }
 
     try {
         await menuItem.save();
@@ -155,10 +177,6 @@ const updateMenuItem = async(req, res, next) => {
         const err = new HttpError('Something went wrong, could not update menu item.', 500);
         return next(err);
     }
-
-    fs.unlink(oldImagePath, err => {
-        console.log(err);
-    });
 
     res.status(200).json(
         {
@@ -183,6 +201,14 @@ const deleteMenuItem = async(req, res, next) => {
         const error = new HttpError('Could not find a menu item for this id.', 404);
         return next(error);
     }
+
+    // restrictions on who can edit a menu
+    // only the creator can edit the menu
+    // need to check token of current user against creator of menu
+    if (menuItem.menu.creator.toString() !== req.userData.userId) {
+        const error = new HttpError("You are not allowed to delete a menu item for a different user.", 401);
+        return next(error);
+    };
 
     const imagePath = menuItem.image;
 
