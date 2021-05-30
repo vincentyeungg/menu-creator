@@ -54,7 +54,7 @@ function ImageUpload(props) {
             <div className="image-upload">
                 <div className="image-upload__preview">
                     {previewUrl && <img src={previewUrl} alt="Preview" />}
-                    {!previewUrl && props.initialImage && <img src={`http://localhost:5000/${props.initialImage}`} />}
+                    {!previewUrl && props.initialImage && <img src={`${process.env.REACT_APP_ASSET_URL}/${props.initialImage}`} />}
                     {!previewUrl && !props.initialImage && <p>Please pick an image.</p>}
                 </div>
                 <div className="image-upload__btn">

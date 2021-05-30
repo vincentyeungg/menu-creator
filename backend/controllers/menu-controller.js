@@ -197,7 +197,7 @@ const deleteMenu = async(req, res, next) => {
     // restrictions on who can delete a menu
     // only the creator can delete the menu
     // need to check token of current user against creator of menu
-    if (menu.creator.toString() !== req.userData.userId) {
+    if (menu.creator._id.toString() !== req.userData.userId) {
         const error = new HttpError("You are not allowed to delete a menu for a different user.", 401);
         return next(error);
     };

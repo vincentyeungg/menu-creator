@@ -1,6 +1,5 @@
 const HttpError = require("../models/http-error");
 const jwt = require('jsonwebtoken');
-const ADMIN_DATA = require('../admin_data');
 
 module.exports = (req, res, next) => {
     // for requests like post, patch, delete, the browser automatically sends an OPTIONS request
@@ -19,7 +18,7 @@ module.exports = (req, res, next) => {
             throw new Error('Authentication failed.');
         }
         // verify returns the payload in the token
-        const decodedToken = jwt.verify(token, ADMIN_DATA.SECRET_KEY);
+        const decodedToken = jwt.verify(token, process.env.JWT_KEY);
         req.userData = { userId: decodedToken.userId };
         next();
     } catch (error) {

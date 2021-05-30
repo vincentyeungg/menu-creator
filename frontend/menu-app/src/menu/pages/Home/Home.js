@@ -18,7 +18,7 @@ function Home() {
     useEffect(() => {
         const fetchMenus = async() => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/api/menus/');
+                const responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menus/`);
                 setLoadedMenus(responseData.menus);   
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here
@@ -30,7 +30,7 @@ function Home() {
     useEffect(() => {
         const fetchUsers = async() => {
             try {
-                const responseData = await sendRequest('http://localhost:5000/api/users/');
+                const responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/users/`);
                 setLoadedUsers(responseData.users);   
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here

@@ -19,7 +19,7 @@ function RemoveMenu() {
     useEffect(() => {
         const fetchMenu = async() => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/menus/${menuId}`);
+                const responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menus/${menuId}`);
                 setLoadedMenu(responseData.menu);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here
@@ -32,7 +32,7 @@ function RemoveMenu() {
         event.preventDefault();
         try {
             const responseData = await sendRequest(
-                `http://localhost:5000/api/menus/${menuId}`,
+                `${process.env.REACT_APP_BACKEND_URL}/menus/${menuId}`,
                 'DELETE',
                 null,
                 {

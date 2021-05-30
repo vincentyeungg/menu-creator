@@ -1,22 +1,24 @@
-import Home from './menu/pages/Home/Home';
-import NavBar from './shared/components/Navigation/NavigationBar/NavigationBar';
-import Login from "./user/pages/Login/Login";
-import Signup from "./user/pages/Signup/Signup";
-import CreateItem from "./menu/pages/CreateItem/CreateItem";
-import RemoveItem from "./menu/components/RemoveItem/RemoveItem";
-import RemoveMenu from "./menu/pages/RemoveMenu/RemoveMenu";
-import EditMenuTD from "./menu/pages/EditMenuTD/EditMenuTD";
-import MyMenus from "./menu/pages/MyMenus/MyMenus";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
-import React from 'react';
-
+import React, { Suspense } from 'react';
 import './App.css';
-import CreateMenu from './menu/pages/CreateMenu/CreateMenu';
-import EditMenu from './menu/pages/EditMenu/EditMenu';
-import UpdateItem from "./menu/components/UpdateItem/UpdateItem";
-import ViewMenu from "./menu/pages/ViewMenu/ViewMenu";
+
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
+import LoadingSpinner from "./shared/components/LoadingSpinner/LoadingSpinner";
+
+const Home = React.lazy(() => import('./menu/pages/Home/Home'));
+const NavBar = React.lazy(() => import('./shared/components/Navigation/NavigationBar/NavigationBar'));
+const Login = React.lazy(() => import('./user/pages/Login/Login'));
+const Signup = React.lazy(() => import('./user/pages/Signup/Signup'));
+const CreateItem = React.lazy(() => import('./menu/pages/CreateItem/CreateItem'));
+const RemoveItem = React.lazy(() => import('./menu/components/RemoveItem/RemoveItem'));
+const RemoveMenu = React.lazy(() => import('./menu/pages/RemoveMenu/RemoveMenu'));
+const EditMenuTD = React.lazy(() => import('./menu/pages/EditMenuTD/EditMenuTD'));
+const MyMenus = React.lazy(() => import('./menu/pages/MyMenus/MyMenus'));
+const CreateMenu = React.lazy(() => import('./menu/pages/CreateMenu/CreateMenu'));
+const EditMenu = React.lazy(() => import('./menu/pages/EditMenu/EditMenu'));
+const UpdateItem = React.lazy(() => import('./menu/components/UpdateItem/UpdateItem'));
+const ViewMenu = React.lazy(() => import('./menu/pages/ViewMenu/ViewMenu'));
 
 function App() {
   const { token, login, logout, userId } = useAuth();
@@ -86,9 +88,15 @@ function App() {
     }>
       <Router>
         <div className="App">
-          <NavBar />
-          {routes}
-          {/* <Footer /> */}
+          <Suspense fallback={
+            <div className="center">
+              <LoadingSpinner />
+            </div>
+            }
+          >
+            <NavBar />
+            {routes}
+          </Suspense>
         </div>
       </Router>
     </AuthContext.Provider>

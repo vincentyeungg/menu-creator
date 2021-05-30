@@ -16,7 +16,7 @@ function MyMenus() {
     useEffect(() => {
         const fetchMenus = async() => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/menus/user/${auth.userId}`);
+                const responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menus/user/${auth.userId}`);
                 setLoadedMenus(responseData.menus);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here

@@ -20,7 +20,7 @@ function RemoveItem() {
     useEffect(() => {
         const fetchItem = async() => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/menuItems/${itemId}`);
+                const responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menuItems/${itemId}`);
                 setLoadedItem(responseData.menuItem);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here
@@ -33,7 +33,7 @@ function RemoveItem() {
         event.preventDefault();
         try {
             const responseData = await sendRequest(
-                `http://localhost:5000/api/menuItems/${itemId}`,
+                `${process.env.REACT_APP_BACKEND_URL}/menuItems/${itemId}`,
                 'DELETE',
                 null,
                 {

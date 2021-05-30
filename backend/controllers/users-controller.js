@@ -4,7 +4,6 @@ const mongooseUniqueValidator = require('mongoose-unique-validator');
 const HttpError = require('../models/http-error');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
-const ADMIN_DATA = require('../admin_data');
 
 // models
 const User = require('../models/user-model');
@@ -69,7 +68,7 @@ const login = async(req, res, next) => {
     try {
         token = jwt.sign(
             {userId: existingUser.id, email: existingUser.email},
-            ADMIN_DATA.SECRET_KEY,
+            process.env.JWT_KEY,
             {expiresIn: '1h'}
         );   
     } catch (error) {
@@ -150,7 +149,7 @@ const signup = async(req, res, next) => {
     try {
         token = jwt.sign(
             {userId: createdUser.id, email: createdUser.email},
-            ADMIN_DATA.SECRET_KEY,
+            process.env.JWT_KEY,
             {expiresIn: '1h'}
         );   
     } catch (error) {

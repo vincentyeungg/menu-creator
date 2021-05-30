@@ -22,7 +22,7 @@ function EditMenu() {
     useEffect(()=>{
         const fetchMenu = async() => {
             try {
-                const responseDataMenu = await sendRequest(`http://localhost:5000/api/menus/${menuId}`);
+                const responseDataMenu = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menus/${menuId}`);
                 setLoadedMenu(responseDataMenu.menu);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here
@@ -30,7 +30,7 @@ function EditMenu() {
         };
         const fetchMenuItems = async() => {
             try {
-                const responseDataMenuItems = await sendRequest(`http://localhost:5000/api/menuItems/menu/${menuId}`);
+                const responseDataMenuItems = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menuItems/menu/${menuId}`);
                 setLoadedMenuItems(responseDataMenuItems.menuItems);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here

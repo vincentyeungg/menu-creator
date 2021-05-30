@@ -47,7 +47,7 @@ function UpdateItem() {
     useEffect(() => {
         const fetchItem = async() => {
             try {
-                const responseData = await sendRequest(`http://localhost:5000/api/menuItems/${itemId}`);
+                const responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/menuItems/${itemId}`);
                 setLoadedItem(responseData.menuItem);
             } catch (error) {
                 // error is handled in custom hook, however it will throw error thus use try-catch here
@@ -66,7 +66,7 @@ function UpdateItem() {
             formData.append('price', formState.inputs.price.value);
             formData.append('image', formState.inputs.image.value);
             const responseData = await sendRequest(
-                `http://localhost:5000/api/menuItems/${itemId}`,
+                `${process.env.REACT_APP_BACKEND_URL}/menuItems/${itemId}`,
                 'PATCH',
                 formData,
                 {
