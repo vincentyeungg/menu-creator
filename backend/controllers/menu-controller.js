@@ -15,7 +15,7 @@ const getMenus = async(req, res, next) => {
 
     // get all documents
     try {
-        menus = await Menu.find({}).populate('creator');
+        menus = await Menu.find({}).populate('creator', '-password');
     } catch (error) {
         const err = new HttpError('Fetching menus failed, please try again later.', 500);
         return next(err);
@@ -34,7 +34,7 @@ const getMenusByUserId = async(req, res, next) => {
     const userId = req.params.userId;
     let menus;
     try {
-        menus = await Menu.find({ 'creator': userId }).populate('creator');
+        menus = await Menu.find({ 'creator': userId }).populate('creator', '-password');
     } catch (error) {
         const err = new HttpError('Something went wrong, could not find menus.', 500);
         return next(err);
@@ -183,7 +183,7 @@ const deleteMenu = async(req, res, next) => {
     // when deleting menu, need to remove from menu, user, and any items that belong to the menu
     let menu;
     try {
-        menu = await Menu.findById(menuId).populate('creator');
+        menu = await Menu.findById(menuId).populate('creator', '-password');
     } catch (error) {
         const err = new HttpError('Something went wrong, could not delete menu.', 500);
         return next(err);

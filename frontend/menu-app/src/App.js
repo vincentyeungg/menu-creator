@@ -8,7 +8,7 @@ import RemoveMenu from "./menu/pages/RemoveMenu/RemoveMenu";
 import EditMenuTD from "./menu/pages/EditMenuTD/EditMenuTD";
 import MyMenus from "./menu/pages/MyMenus/MyMenus";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
-import { useState, useCallback, useEffect } from 'react';
+import React from 'react';
 
 import './App.css';
 import CreateMenu from './menu/pages/CreateMenu/CreateMenu';
@@ -16,38 +16,10 @@ import EditMenu from './menu/pages/EditMenu/EditMenu';
 import UpdateItem from "./menu/components/UpdateItem/UpdateItem";
 import ViewMenu from "./menu/pages/ViewMenu/ViewMenu";
 import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(false);
-
-  const login = useCallback((uid, token, expirationDate) => {
-    setToken(token);
-    setUserId(uid);
-    // once user logs in, set the token expiration to after 1 hour, as configured in the backend
-    // if user already has an existing token configured earlier within the hour, use that token instead
-    const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-    localStorage.setItem('userData', JSON.stringify(
-      {
-        userId: uid, 
-        token: token,
-        expiration: tokenExpirationDate.toISOString()
-      }
-    ));
-  }, []);
-
-  const logout = useCallback(() => {
-    setToken(null);
-    setUserId(null);
-    localStorage.removeItem('userData');
-  }, []);
-
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    if (storedData && storedData.token && new Date(storedData.expiration) > new Date()) {
-      login(storedData.userId, storedData.token, new Date(storedData.expiration));
-    } 
-  }, [login]);
+  const { token, login, logout, userId } = useAuth();
 
   let routes;
 

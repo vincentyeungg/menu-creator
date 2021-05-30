@@ -10,6 +10,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
+    animation-duration: 1.5s;
+    animation-name: bounceIn;
 }
 
 .container__menu li{
