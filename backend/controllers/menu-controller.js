@@ -8,6 +8,7 @@ const Menu = require('../models/menu-model');
 const User = require('../models/user-model');
 const MenuItem = require('../models/menuItem-model');
 const HttpError = require('../models/http-error');
+const fileDelete = require('../middleware/file-delete');
 
 // retrieve all menus
 const getMenus = async(req, res, next) => {
@@ -231,9 +232,7 @@ const deleteMenu = async(req, res, next) => {
     }
 
     deleteImgPathArray.forEach(imagePath => {
-        fs.unlink(imagePath, err => {
-            console.log(err);
-        })
+        fileDelete(imagePath);
     });
 
     res.status(200).json(

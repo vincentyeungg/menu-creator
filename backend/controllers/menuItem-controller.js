@@ -8,6 +8,7 @@ const Menu = require('../models/menu-model');
 const User = require('../models/user-model');
 const MenuItem = require('../models/menuItem-model');
 const HttpError = require('../models/http-error');
+const fileDelete = require('../middleware/file-delete');
 
 // retrieve all items
 const getMenuItems = async(req, res, next) => {
@@ -68,6 +69,7 @@ const getMenuItemByItemId = async(req, res, next) => {
 
 // creating a menu item
 const createMenuItem = async(req, res, next) => {
+    console.log('hi')
     // validate incoming req parameters
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
@@ -82,7 +84,7 @@ const createMenuItem = async(req, res, next) => {
         description: description,
         price: price,
         type: type,
-        image: req.file.path,
+        image: req.file.location,
         menu: menuId
     });
 
@@ -165,10 +167,8 @@ const updateMenuItem = async(req, res, next) => {
     menuItem.price = price;
     
     if (!!req.file) {
-        menuItem.image = req.file.path;
-        fs.unlink(oldImagePath, err => {
-            console.log(err);
-        });
+        menuItem.image = req.file.location;
+        fileDelete(oldImagePath);
     }
 
     try {
@@ -225,9 +225,8 @@ const deleteMenuItem = async(req, res, next) => {
         return next(err);
     }
 
-    fs.unlink(imagePath, err => {
-        console.log(err);
-    })
+    // remove the image from s3 bucket
+    fileDelete(imagePath);
 
     res.status(200).json(
         {message: "Deleted menu item."}

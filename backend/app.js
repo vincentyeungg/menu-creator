@@ -7,13 +7,13 @@ const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@pro
 const HttpError = require('./models/http-error');
 const fs = require("fs");
 const path = require('path');
+const fileDelete = require('./middleware/file-delete');
 
 const app = express();
 app.use(bodyParser.json());
 
 // security error CORS since front end is on another port than the back end
 app.use((req, res, next) => {
-    // allow access to any domain
     // allow access to any domain
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 // allow frontend to obtain images with correct path
-app.use('/uploads/images', express.static(path.join('uploads','images')));
+// app.use('/uploads/images', express.static(path.join('uploads','images')));
 
 // routes middleware
 const menusRoutes = require('./routes/menu-routes');
@@ -43,17 +43,16 @@ app.use((req, res, next) => {
 
 // error middleware
 app.use((error, req, res, next) => {
+    // if there was an error, check if there was a file added, and then remove it from the system
+    if (req.file) {
+        fileDelete(req.file.location);
+    }
     // check if a response has been sent already
     if (res.headerSent) {
         return next(error);
     }
-    // if there was an error, check if there was a file added, and then remove it from the system
-    if (req.file) {
-        fs.unlink(req.file.path, (err) => {
-            console.log(err);
-        });
-    }
     // if no responses have been sent
+    console.log(error.message)
     res.status(error.code || 500).json({
         message: error.message || 'An unknown error occurred.'
     })
@@ -66,6 +65,6 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err)
 });
 
 // start server
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log("Server started successfully on port " + port);
 });

@@ -42,7 +42,7 @@ function MyMenus() {
                         <div className="menus__container">
                             <ul className="container__menu">
                                 {loadedMenus.map(menu => (
-                                    <li>
+                                    <li key={menu.id}>
                                         <ContentCard 
                                             key={menu.id}
                                             title={menu.title}
