@@ -17,6 +17,9 @@ Home
 Your menus
 <img src="readme/yourmenus.PNG" >
 
+View menu
+<img src="readme/menu.PNG" >
+
 Create Menu
 <img src="readme/createmenu.PNG" >
 
@@ -35,4 +38,22 @@ Update item
 Remove item
 <img src="readme/removeitem.PNG" >
 
-API's are hosted on https://mern-menu-creator.herokuapp.com/api/.
+API's are hosted on https://mern-menu-creator.herokuapp.com/api.
+
+| API routes | Type | actions |
+| --- | --- | --- |
+| /users | 'GET' | Retrieve all users and returns as a 'users' object. |
+| /users/login | 'POST' | Accepts 'email' and 'password' fields and returns a 'user' object with 'userId', 'email', 'token'. |
+| /users/signup | 'POST' | Accepts 'firstname', 'lastname', 'email', 'password' fields and returns a 'user' object with 'userId', 'email', 'token'. |
+| /menus | 'GET' | Retrieve all menus and returns a 'menus' object. |
+| /menus/user/:userId | 'GET' | Retrieves menus of a user with userId. Returns a 'menus' object. |
+| /menus/:menuId | 'GET' | Retrieves a menu with a given menuId. Returns a 'menu' object. |
+| /menus | 'POST' | Creates a new menu and accepts 'title', 'description', 'creator' fields. Returns a 'menu' object. |
+| /menus/:menuId | 'PATCH' | Updates a menu with the specified menuId. Accepts 'title' and 'description' fields. Returns a 'menu' object. |
+| /menus/:menuId | 'DELETE' | Removes a menu with the specified menuId from the database. |
+| /menuItems | 'GET' | |
+| /menuItems/menu/:menuId | 'GET' | |
+| /menuItems/:itemId | 'GET' | |
+| /menuItems/:menuId | 'POST' | |
+| /menuItems/:menuItemId | 'PATCH' | |
+| /menuItems/:menuItemId | 'DELETE' | |
