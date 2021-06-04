@@ -51,9 +51,9 @@ API's are hosted on https://mern-menu-creator.herokuapp.com/api.
 | /menus | 'POST' | Creates a new menu and accepts 'title', 'description', 'creator' fields. Returns a 'menu' object. |
 | /menus/:menuId | 'PATCH' | Updates a menu with the specified menuId. Accepts 'title' and 'description' fields. Returns a 'menu' object. |
 | /menus/:menuId | 'DELETE' | Removes a menu with the specified menuId from the database. |
-| /menuItems | 'GET' | |
-| /menuItems/menu/:menuId | 'GET' | |
-| /menuItems/:itemId | 'GET' | |
-| /menuItems/:menuId | 'POST' | |
-| /menuItems/:menuItemId | 'PATCH' | |
-| /menuItems/:menuItemId | 'DELETE' | |
+| /menuItems | 'GET' | Retrieve all menu items and returns a 'menuItems' object. |
+| /menuItems/menu/:menuId | 'GET' | Retrieves menu items given a specific menuId. Returns a 'menuItems' object. |
+| /menuItems/:itemId | 'GET' | Retrieves a menu item given a specific itemId. Returns a 'menuItem' object. |
+| /menuItems/:menuId | 'POST' | Creates a new item for a given menuId. Accepts 'title', 'description', 'price', 'type', 'image' fields. Returns a 'menuItem' object. |
+| /menuItems/:menuItemId | 'PATCH' | Updates a menu item with a speficied menuItemId. Accepts 'title', 'description', 'price' fields. Returns a 'menuItem' object. |
+| /menuItems/:menuItemId | 'DELETE' | Removes a menu item with the specified menuItemId. |
