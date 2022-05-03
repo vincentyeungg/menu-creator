@@ -1,4 +1,8 @@
 const aws = require('aws-sdk');
+require('dotenv').config()
+
+// unable to use .env variables in s3 object
+// const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 
 aws.config.update(
     {
@@ -14,6 +18,7 @@ const fileDelete = async (imagePath) => {
     const filename = imagePath.split('/').pop();
     const params = { 
         Bucket: process.env.AWS_BUCKET_NAME, 
+        // Bucket: AWS_BUCKET_NAME, 
         Key: filename 
     };
 
