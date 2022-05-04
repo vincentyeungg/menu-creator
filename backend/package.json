@@ -4,8 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "test": "jest --watchAll --no-cache",
+    "start": "node index.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -23,5 +29,10 @@
     "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^28.0.3",
+    "mongodb-memory-server": "^8.5.2",
+    "supertest": "^6.2.3"
   }
 }
