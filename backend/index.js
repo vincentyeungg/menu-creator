@@ -41,5 +41,5 @@ const start = async () => {
     });
 };
 
-// coonect to db, and listen on configured port for incoming traffic
+// connect to db, and listen on configured port for incoming traffic
 start();
