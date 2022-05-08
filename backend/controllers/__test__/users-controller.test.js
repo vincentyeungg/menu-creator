@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../../app.js');
 const valid_email = require('../../test/setup.js');
+const valid_user = require('../../test/setup.js');
 
 // tests for the backend apis reaching /api/users/
 
@@ -86,4 +87,41 @@ it('returns 422 when user signs up with taken email', async () => {
             password: 'q1q1q1q1'
         })
         .expect(422);
+});
+
+// login tests
+it('returns a 401 when user with email is not found', async () => {
+    return request(app)
+        .post('/api/users/login')
+        .send({
+            email: 'test@test.com',
+            password: 'q1q1q1q1'
+        })
+        .expect(401);
+});
+
+it('returns a 403 when user enters wrong password', async () => {
+    // have a valid user
+    await valid_user.valid_user();
+
+    return request(app)
+        .post('/api/users/login')
+        .send({
+            email: 'valid_user@test.com',
+            password: 'q1q1q1q1'
+        })
+        .expect(403);
+});
+
+it('returns a 200 on successful login credentials', async () => {
+    // have a valid user
+    await valid_user.valid_user();
+
+    return request(app)
+        .post('/api/users/login')
+        .send({
+            email: 'valid_user@test.com',
+            password: 'password'
+        })
+        .expect(200);
 });

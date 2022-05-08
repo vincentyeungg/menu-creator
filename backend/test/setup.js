@@ -40,7 +40,7 @@ const valid_user = async () => {
     const lastname = 'User_1';
     const password = 'password';
 
-    const response = await request(app)
+    await request(app)
         .post('/api/users/signup')
         .send({
             firstname,
@@ -49,8 +49,6 @@ const valid_user = async () => {
             password
         })
         .expect(200);
-
-    return response;
 };
 
 exports.valid_user = valid_user;
