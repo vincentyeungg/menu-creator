@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 // env variables
-require('dotenv').config()
+require('dotenv').config();
 
 const HttpError = require('./models/http-error');
 const fs = require("fs");
