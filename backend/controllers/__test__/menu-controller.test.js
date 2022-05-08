@@ -13,6 +13,7 @@ it('returns a 403 when accessing route with invalid credentials, user not logged
         .expect(403);
 });
 
+// test authenticated routes
 // tests on create
 
 // tests on get
