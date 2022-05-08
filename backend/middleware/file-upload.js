@@ -4,7 +4,7 @@ const multerS3 = require('multer-s3');
 require('dotenv').config()
 
 // unable to use .env variables in s3 object
-// const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 
 aws.config.update(
     {
@@ -26,8 +26,8 @@ const fileUpload = multer({
     limits: 500000,
     storage: multerS3({
         s3: s3,
-        bucket: process.env.AWS_BUCKET_NAME,
-        // bucket: AWS_BUCKET_NAME,
+        // bucket: process.env.AWS_BUCKET_NAME,
+        bucket: AWS_BUCKET_NAME,
         acl: 'public-read',
         metadata: function (req, file, cb) {
             cb(null, { fieldName: file.fieldname });
