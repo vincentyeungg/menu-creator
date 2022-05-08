@@ -4,8 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "test": "jest --watchAll --no-cache",
+    "start": "node index.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +19,7 @@
     "aws-sdk": "^2.918.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
     "jsonwebtoken": "^8.5.1",
@@ -22,5 +29,10 @@
     "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "jest": "^28.0.3",
+    "mongodb-memory-server": "^8.5.2",
+    "supertest": "^6.2.3"
   }
 }

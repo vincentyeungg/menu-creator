@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-// port number to host backend
-const port = 5000;
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@projects.wjxbx.mongodb.net/${process.env.DB_NAME}`;
+
+// env variables
+require('dotenv').config()
+
 const HttpError = require('./models/http-error');
 const fs = require("fs");
 const path = require('path');
@@ -58,13 +58,4 @@ app.use((error, req, res, next) => {
     })
 });
 
-// connection to database
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-    // 0: disconnected, 1: connected, 2: connecting, 3: disconnecting
-    console.log(`mongoDB connection status: ${mongoose.connection.readyState}`);
-});
-
-// start server
-app.listen(process.env.PORT || port, () => {
-    console.log("Server started successfully on port " + port);
-});
+module.exports = app;
