@@ -37,7 +37,7 @@ const start = async () => {
 
     // start server
     app.listen(process.env.PORT || port, () => {
-        console.log("Server started successfully on port " + port);
+        console.log("Server started successfully, now listening on port " + port);
     });
 };
 

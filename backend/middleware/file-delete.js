@@ -1,5 +1,5 @@
 const aws = require('aws-sdk');
-require('dotenv').config()
+require('dotenv').config();
 
 // unable to use .env variables in s3 object
 // const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
@@ -17,8 +17,7 @@ const s3 = new aws.S3();
 const fileDelete = async (imagePath) => {
     const filename = imagePath.split('/').pop();
     const params = { 
-        Bucket: process.env.AWS_BUCKET_NAME, 
-        // Bucket: AWS_BUCKET_NAME, 
+        Bucket: process.env.AWS_BUCKET_NAME ?? 'mern-menu-creator-images', 
         Key: filename 
     };
 
